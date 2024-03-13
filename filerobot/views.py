@@ -119,8 +119,6 @@ def file_view(request):
             .order_by("-updated_at")\
             .first()
         
-        print("GET IMAGE", image.file.url, state)
-        
         if state:
             data["design_state"] = state.designstate
 
