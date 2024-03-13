@@ -1,0 +1,7 @@
+include LICENSE
+include README.md
+recursive-include filerobot/static *
+recursive-include filerobot/templates *
+recursive-include filerobot/locale *
+recursive-include filerobot/migrations *
+recursive-include filerobot/templatetags *

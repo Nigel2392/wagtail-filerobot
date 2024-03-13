@@ -1,0 +1,475 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-03-13 17:45+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: .\tester\filerobot\models.py:18
+msgid "Design State"
+msgstr "Design Snapshot"
+
+#: .\tester\filerobot\models.py:24
+msgid "Created at"
+msgstr "Aangemaakt op"
+
+#: .\tester\filerobot\models.py:29
+msgid "Updated at"
+msgstr "Bijgewerkt op"
+
+#: .\tester\filerobot\views.py:110
+msgid "No image ID specified"
+msgstr "Geen afbeelding ID opgegeven"
+
+#: .\tester\filerobot\views.py:118
+msgid "No image found"
+msgstr "Geen afbeelding gevonden"
+
+#: .\tester\filerobot\wagtail_hooks.py:19
+msgid "Name"
+msgstr "Naam"
+
+#: .\tester\filerobot\wagtail_hooks.py:20
+msgid "Save"
+msgstr "Opslaan"
+
+#: .\tester\filerobot\wagtail_hooks.py:21
+#: .\tester\filerobot\wagtail_hooks.py:115
+msgid "Save as"
+msgstr "Opslaan als"
+
+#: .\tester\filerobot\wagtail_hooks.py:22
+msgid "Back"
+msgstr "Terug"
+
+#: .\tester\filerobot\wagtail_hooks.py:23
+msgid "Loading..."
+msgstr "Laden..."
+
+#: .\tester\filerobot\wagtail_hooks.py:24
+msgid "Reset/delete all operations"
+msgstr "Alle bewerkingen resetten/verwijderen"
+
+#: .\tester\filerobot\wagtail_hooks.py:26
+msgid ""
+"If you press button “reset” your changes will lost. Would you like to "
+"continue?"
+msgstr ""
+"Als u op de knop “reset” drukt, gaan uw wijzigingen verloren. Wilt u "
+"doorgaan?"
+
+#: .\tester\filerobot\wagtail_hooks.py:28
+msgid "If you close modal, your last change will not be saved."
+msgstr "Als u het dialoogvenster sluit, wordt uw laatste wijziging niet opgeslagen."
+
+#: .\tester\filerobot\wagtail_hooks.py:29
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: .\tester\filerobot\wagtail_hooks.py:30
+msgid "Apply"
+msgstr "Toepassen"
+
+#: .\tester\filerobot\wagtail_hooks.py:31
+msgid "Warning"
+msgstr "Waarschuwing"
+
+#: .\tester\filerobot\wagtail_hooks.py:32
+msgid "Confirm"
+msgstr "Bevestigen"
+
+#: .\tester\filerobot\wagtail_hooks.py:33
+msgid "Discard changes"
+msgstr "Wijzigingen Weggooien"
+
+#: .\tester\filerobot\wagtail_hooks.py:34
+msgid "Undo last operation"
+msgstr "Laatste bewerking ongedaan maken"
+
+#: .\tester\filerobot\wagtail_hooks.py:35
+msgid "Redo last operation"
+msgstr "Laatste bewerking opnieuw uitvoeren"
+
+#: .\tester\filerobot\wagtail_hooks.py:36
+msgid "Show original image"
+msgstr "Oorspronkelijke afbeelding weergeven"
+
+#: .\tester\filerobot\wagtail_hooks.py:37
+msgid "Zoom in"
+msgstr "Inzoomen"
+
+#: .\tester\filerobot\wagtail_hooks.py:38
+msgid "Zoom out"
+msgstr "Uitzoomen"
+
+#: .\tester\filerobot\wagtail_hooks.py:39
+msgid "Toggle zoom menu"
+msgstr "Zoommenu in-/uitschakelen"
+
+#: .\tester\filerobot\wagtail_hooks.py:40
+msgid "Adjust"
+msgstr "Aanpassen"
+
+#: .\tester\filerobot\wagtail_hooks.py:41
+msgid "Finetune"
+msgstr "Afstemmen"
+
+#: .\tester\filerobot\wagtail_hooks.py:42
+msgid "Filters"
+msgstr "Filters"
+
+#: .\tester\filerobot\wagtail_hooks.py:43
+msgid "Watermark"
+msgstr "Watermerk"
+
+#: .\tester\filerobot\wagtail_hooks.py:44
+msgid "Annotate"
+msgstr "Aantekenen"
+
+#: .\tester\filerobot\wagtail_hooks.py:45
+#: .\tester\filerobot\wagtail_hooks.py:46
+msgid "Resize"
+msgstr "Formaat"
+
+#: .\tester\filerobot\wagtail_hooks.py:47
+msgid "Image name"
+msgstr "Afbeeldingsnaam"
+
+#: .\tester\filerobot\wagtail_hooks.py:48
+msgid "Invalid image provided."
+msgstr "Ongeldige afbeelding opgegeven."
+
+#: .\tester\filerobot\wagtail_hooks.py:49
+msgid "Error while uploading the image."
+msgstr "Fout bij het uploaden van de afbeelding."
+
+#: .\tester\filerobot\wagtail_hooks.py:50
+msgid "are not images"
+msgstr "zijn geen afbeeldingen"
+
+#: .\tester\filerobot\wagtail_hooks.py:51
+msgid "is not image"
+msgstr "is geen afbeelding"
+
+#: .\tester\filerobot\wagtail_hooks.py:52
+msgid "to be uploaded"
+msgstr "om te worden geüpload"
+
+#: .\tester\filerobot\wagtail_hooks.py:53
+msgid "Crop"
+msgstr "Bijsnijden"
+
+#: .\tester\filerobot\wagtail_hooks.py:54
+msgid "Original"
+msgstr "Origineel"
+
+#: .\tester\filerobot\wagtail_hooks.py:55
+msgid "Custom"
+msgstr "Aangepast"
+
+#: .\tester\filerobot\wagtail_hooks.py:56
+msgid "Square"
+msgstr "Vierkant"
+
+#: .\tester\filerobot\wagtail_hooks.py:57
+msgid "Landscape"
+msgstr "Landschap"
+
+#: .\tester\filerobot\wagtail_hooks.py:58
+msgid "Portrait"
+msgstr "Portret"
+
+#: .\tester\filerobot\wagtail_hooks.py:59
+#: .\tester\filerobot\wagtail_hooks.py:66
+msgid "Ellipse"
+msgstr "Ellips"
+
+#: .\tester\filerobot\wagtail_hooks.py:60
+msgid "Classic TV"
+msgstr "Klassieke TV"
+
+#: .\tester\filerobot\wagtail_hooks.py:61
+msgid "Cinemascope"
+msgstr "Cinemascope"
+
+#: .\tester\filerobot\wagtail_hooks.py:62
+msgid "Arrow"
+msgstr "Pijl"
+
+#: .\tester\filerobot\wagtail_hooks.py:63
+#: .\tester\filerobot\wagtail_hooks.py:110
+msgid "Blur"
+msgstr "Vervagen"
+
+#: .\tester\filerobot\wagtail_hooks.py:64
+#: .\tester\filerobot\wagtail_hooks.py:73
+msgid "Brightness"
+msgstr "Helderheid"
+
+#: .\tester\filerobot\wagtail_hooks.py:65
+msgid "Contrast"
+msgstr "Contrast"
+
+#: .\tester\filerobot\wagtail_hooks.py:67
+msgid "Un-Flip X"
+msgstr "Ongekeerd X"
+
+#: .\tester\filerobot\wagtail_hooks.py:68
+msgid "Flip X"
+msgstr "Keer X"
+
+#: .\tester\filerobot\wagtail_hooks.py:69
+msgid "Un-Flip Y"
+msgstr "Ongekeerd Y"
+
+#: .\tester\filerobot\wagtail_hooks.py:70
+msgid "Flip Y"
+msgstr "Keer Y"
+
+#: .\tester\filerobot\wagtail_hooks.py:71
+msgid "HSV"
+msgstr "HSV"
+
+#: .\tester\filerobot\wagtail_hooks.py:72
+msgid "Hue"
+msgstr "Tint"
+
+#: .\tester\filerobot\wagtail_hooks.py:74
+msgid "Saturation"
+msgstr "Verzadiging"
+
+#: .\tester\filerobot\wagtail_hooks.py:75
+msgid "Value"
+msgstr "Waarde"
+
+#: .\tester\filerobot\wagtail_hooks.py:76
+msgid "Image"
+msgstr "Afbeelding"
+
+#: .\tester\filerobot\wagtail_hooks.py:77
+msgid "Importing..."
+msgstr "Importeren..."
+
+#: .\tester\filerobot\wagtail_hooks.py:78
+msgid "+ Add image"
+msgstr "+ Afbeelding toevoegen"
+
+#: .\tester\filerobot\wagtail_hooks.py:79
+msgid "Upload image"
+msgstr "Afbeelding uploaden"
+
+#: .\tester\filerobot\wagtail_hooks.py:80
+msgid "From gallery"
+msgstr "Uit galerij"
+
+#: .\tester\filerobot\wagtail_hooks.py:81
+msgid "Line"
+msgstr "Lijn"
+
+#: .\tester\filerobot\wagtail_hooks.py:82
+msgid "Pen"
+msgstr "Pen"
+
+#: .\tester\filerobot\wagtail_hooks.py:83
+msgid "Polygon"
+msgstr "Veelhoek"
+
+#: .\tester\filerobot\wagtail_hooks.py:84
+msgid "Sides"
+msgstr "Zijden"
+
+#: .\tester\filerobot\wagtail_hooks.py:85
+msgid "Rectangle"
+msgstr "Rechthoek"
+
+#: .\tester\filerobot\wagtail_hooks.py:86
+msgid "Corner Radius"
+msgstr "Hoekradius"
+
+#: .\tester\filerobot\wagtail_hooks.py:87
+msgid "Width in pixels"
+msgstr "Breedte in pixels"
+
+#: .\tester\filerobot\wagtail_hooks.py:88
+msgid "Height in pixels"
+msgstr "Hoogte in pixels"
+
+#: .\tester\filerobot\wagtail_hooks.py:89
+msgid "Toggle ratio lock"
+msgstr "Verhoudingsslot in-/uitschakelen"
+
+#: .\tester\filerobot\wagtail_hooks.py:90
+msgid "Reset to original image size"
+msgstr "Terugzetten naar oorspronkelijke afbeeldingsgrootte"
+
+#: .\tester\filerobot\wagtail_hooks.py:91
+msgid "Rotate"
+msgstr "Draaien"
+
+#: .\tester\filerobot\wagtail_hooks.py:92
+msgid "Text"
+msgstr "Tekst"
+
+#: .\tester\filerobot\wagtail_hooks.py:93
+msgid "Text spacings"
+msgstr "Tekstspaties"
+
+#: .\tester\filerobot\wagtail_hooks.py:94
+msgid "Text alignment"
+msgstr "Tekstuitlijning"
+
+#: .\tester\filerobot\wagtail_hooks.py:95
+msgid "Font family"
+msgstr "Lettertype"
+
+#: .\tester\filerobot\wagtail_hooks.py:96
+msgid "Size"
+msgstr "Grootte"
+
+#: .\tester\filerobot\wagtail_hooks.py:97
+msgid "Letter Spacing"
+msgstr "Letterafstand"
+
+#: .\tester\filerobot\wagtail_hooks.py:98
+msgid "Line height"
+msgstr "Regelhoogte"
+
+#: .\tester\filerobot\wagtail_hooks.py:99
+msgid "Warmth"
+msgstr "Warmte"
+
+#: .\tester\filerobot\wagtail_hooks.py:100
+msgid "+ Add watermark"
+msgstr "+ Watermerk toevoegen"
+
+#: .\tester\filerobot\wagtail_hooks.py:101
+msgid "+ Add text watermark"
+msgstr "+ Tekstwatermerk toevoegen"
+
+#: .\tester\filerobot\wagtail_hooks.py:102
+msgid "Choose the watermark type"
+msgstr "Kies het watertype"
+
+#: .\tester\filerobot\wagtail_hooks.py:103
+msgid "Upload watermark"
+msgstr "Watermerk uploaden"
+
+#: .\tester\filerobot\wagtail_hooks.py:104
+msgid "Add as text"
+msgstr "Toevoegen als tekst"
+
+#: .\tester\filerobot\wagtail_hooks.py:105
+msgid "Padding"
+msgstr "Opvulling"
+
+#: .\tester\filerobot\wagtail_hooks.py:106
+msgid "Paddings"
+msgstr "Opvullingen"
+
+#: .\tester\filerobot\wagtail_hooks.py:107
+msgid "Shadow"
+msgstr "Schaduw"
+
+#: .\tester\filerobot\wagtail_hooks.py:108
+msgid "Horizontal"
+msgstr "Horizontaal"
+
+#: .\tester\filerobot\wagtail_hooks.py:109
+msgid "Vertical"
+msgstr "Verticaal"
+
+#: .\tester\filerobot\wagtail_hooks.py:111
+msgid "Opacity"
+msgstr "Ondoorzichtigheid"
+
+#: .\tester\filerobot\wagtail_hooks.py:112
+msgid "Transparency"
+msgstr "Transparantie"
+
+#: .\tester\filerobot\wagtail_hooks.py:113
+msgid "Position"
+msgstr "Positie"
+
+#: .\tester\filerobot\wagtail_hooks.py:114
+msgid "Stroke"
+msgstr "Slag"
+
+#: .\tester\filerobot\wagtail_hooks.py:116
+msgid "Extension"
+msgstr "Extensie"
+
+#: .\tester\filerobot\wagtail_hooks.py:117
+msgid "Format"
+msgstr "Formaat"
+
+#: .\tester\filerobot\wagtail_hooks.py:118
+msgid "Name is required."
+msgstr "Naam is verplicht."
+
+#: .\tester\filerobot\wagtail_hooks.py:119
+msgid "Quality"
+msgstr "Kwaliteit"
+
+#: .\tester\filerobot\wagtail_hooks.py:120
+msgid "Saved image size (width x height)"
+msgstr "Opgeslagen afbeeldingsgrootte (breedte x hoogte)"
+
+#: .\tester\filerobot\wagtail_hooks.py:122
+msgid ""
+"Note, the selected crop area is lower than the applied resize which might "
+"cause quality decrease"
+msgstr ""
+"Let op, het geselecteerde bijsnijdgebied is lager dan de toegepaste "
+"formaatwijziging, wat kan leiden tot een afname van de kwaliteit"
+
+#: .\tester\filerobot\wagtail_hooks.py:123
+msgid "Actual size (100%)"
+msgstr "Werkelijke grootte (100%)"
+
+#: .\tester\filerobot\wagtail_hooks.py:124
+msgid "Fit size"
+msgstr "Passende grootte"
+
+#: .\tester\filerobot\wagtail_hooks.py:125
+msgid "Select image to add..."
+msgstr "Selecteer afbeelding om toe te voegen..."
+
+#: .\tester\filerobot\wagtail_hooks.py:126
+msgid "Failed to load image."
+msgstr "Afbeelding laden mislukt."
+
+#: .\tester\filerobot\wagtail_hooks.py:127
+msgid "Menu"
+msgstr "Menu"
+
+#: .\tester\filerobot\wagtail_hooks.py:128
+msgid "Download"
+msgstr "Downloaden"
+
+#: .\tester\filerobot\wagtail_hooks.py:129
+msgid "Width"
+msgstr "Breedte"
+
+#: .\tester\filerobot\wagtail_hooks.py:130
+msgid "Height"
+msgstr "Hoogte"
+
+#: .\tester\filerobot\wagtail_hooks.py:131
+msgid "+"
+msgstr "+"
+
+#: .\tester\filerobot\wagtail_hooks.py:132
+msgid "No preview available for this crop item"
+msgstr "Geen voorbeeld beschikbaar voor dit bijsnijditem"
