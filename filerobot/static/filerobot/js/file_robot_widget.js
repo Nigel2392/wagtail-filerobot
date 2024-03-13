@@ -241,6 +241,7 @@ class FileRobotWidget {
     _parseDesignState(designState) {
         try {
             this.editorConfig.loadableDesignState = JSON.parse(designState);
+            console.log('Design state:', this.editorConfig.loadableDesignState);
         } catch (error) {
             console.error(`Failed to parse design state: ${error.message}`);
         }

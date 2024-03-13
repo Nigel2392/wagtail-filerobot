@@ -47,7 +47,7 @@ def file_view(request):
         collection = get_collection_for_request(request)
         POST_DATA = {
             "title": request.POST.get("title", ""),
-            "collection": collection.id,
+            "collection": collection.pk,
         }
 
         form = ImageForm(
@@ -77,7 +77,7 @@ def file_view(request):
 
         return JsonResponse({
             "success": True,
-            "id": instance.id,
+            "id": instance.pk,
             "url": instance.file.url,
             "title": instance.title,
         })
@@ -101,7 +101,7 @@ def file_view(request):
     if image.uploaded_by_user and image.uploaded_by_user != request.user:
         data = {
             "success": False,
-            "id": image.id,
+            "id": image.pk,
             "url": image.file.url,
             "title": image.title,
             "editable": False,
@@ -110,7 +110,7 @@ def file_view(request):
     else:
         data = {
             "success": True,
-            "id": image.id,
+            "id": image.pk,
             "url": image.file.url,
             "title": image.title,
             "editable": True,

@@ -17,35 +17,64 @@ Quick start
 2. Import and use the widget on your model
 
    ```python
-   import filerobot
+   from django.db import models
+   from wagtail import fields
+   from wagtail.models import Page
+   from wagtail.admin.panels import FieldPanel
+
+   from filerobot.widgets import FileRobotWidget
+   from filerobot.blocks import FilerobotBlock as FilerobotBlock
+   from filerobot.fields import FileRobotField as FileRobotImageField
+
 
    class HomePage(Page):
-       content_panels = [
-           FieldPanel('image', widget=FileRobotWidget(
-               tabs=[
-                   "Finetune",
-                   "Filters",
-                   "Adjust",
-                   # "Watermark",
-                   "Annotate",
-                   # "Resize",
-               ],
-               # ... check init method and filerobot docs
-           )),
-       ]
-
        image = models.ForeignKey(
            "wagtailimages.Image",
+           null=True,
+           blank=True,
+           on_delete=models.SET_NULL,
+           related_name="+",
        )
 
-   ```
+       # As an automatic foreign key field!
+       filerobot_image = FileRobotImageField(
+           tabs=[
+               "Finetune",
+               "Filters",
+               "Adjust",
+               "Watermark",
+               "Annotate",
+               "Resize",
+           ],
+       )
 
+       content_panels = [
+           # As a widget!
+           FieldPanel('image', widget=FileRobotWidget(tabs=[
+               "Finetune",
+               "Filters",
+               "Adjust",
+               "Watermark",
+               "Annotate",
+               "Resize",
+           ])),
+           FieldPanel("filerobot_image"),
+           *Page.content_panels,
+           FieldPanel('content'),
+       ]
+
+       content = fields.StreamField([
+           # As a block!
+           ('filerobot', FilerobotBlock()),
+       ], blank=True, use_json_field=True)
+
+   ```
 3. Add the URLs to your urls.py
-   
-      ```python
-      from django.urls import path, include
-   
-      urlpatterns = [
-         path('filerobot/', include('filerobot.urls')),
-      ]
-      ```
+
+   ```python
+   from django.urls import path, include
+
+   urlpatterns = [
+      path('filerobot/', include('filerobot.urls')),
+   ]
+   ```

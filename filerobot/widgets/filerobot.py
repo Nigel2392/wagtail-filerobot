@@ -98,7 +98,7 @@ def _json_script(data, id: str) -> str:
         mark_safe(json.dumps(data, cls=_JSONEncoder)),
     )
 
-class FileRobotWidget(widgets.Input):
+class FileRobotWidget(widgets.NumberInput):
     input_type = "hidden"
     template_name = "filerobot/widgets/file_robot_widget.html"
 
@@ -212,6 +212,12 @@ class FileRobotWidget(widgets.Input):
                 )
 
         return attrs
+    
+    def get_value_data(self, value):
+        if value is None:
+            return None
+        
+        return value.pk
 
     class Media:
         css = {
@@ -220,8 +226,7 @@ class FileRobotWidget(widgets.Input):
             )
         }
         js = (
-            HTMLMediaSource("filerobot/js/filerobot.js", "text/javascript"),
-            HTMLMediaSource("filerobot/js/file_robot_widget_controller.js", "text/javascript"),
-            HTMLMediaSource("filerobot/js/file_robot_widget.js", "text/javascript"),
+            "filerobot/js/filerobot.js",
+            "filerobot/js/file_robot_widget_controller.js",
+            "filerobot/js/file_robot_widget.js",
         )
-
