@@ -58,6 +58,7 @@ def file_view(request):
                 "success": False,
                 "errors": form.errors,
             })
+        
 
         instance = form.save(commit=False)
         instance.uploaded_by_user = request.user
@@ -117,6 +118,8 @@ def file_view(request):
         state = DesignState.objects.filter(image=image)\
             .order_by("-updated_at")\
             .first()
+        
+        print("GET IMAGE", image.file.url, state)
         
         if state:
             data["design_state"] = state.designstate
