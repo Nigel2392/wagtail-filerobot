@@ -3,7 +3,7 @@ from wagtail.models import Collection
 from filerobot import FILEROBOT_COLLECTION_NAME
 
 def create_filerobot_collection(sender, **kwargs):
-    if Collection.objects.filter(name=FILEROBOT_COLLECTION_NAME, depth=0).exists():
+    if Collection.objects.filter(name=FILEROBOT_COLLECTION_NAME, depth=1).exists():
         return
     
     Collection.add_root(
