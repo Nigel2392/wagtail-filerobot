@@ -4,36 +4,10 @@
         name="{{ widget.name }}"
         {% if widget.value != None %}value="{{ widget.value|stringformat:'s' }}"{% endif %}
         {% include "django/forms/widgets/attrs.html" %}>
-        {% for script in widget.tpl_data %}
-            {{ script|safe }}
-        {% endfor %}
-    <style>
-        .FIE_root {
-            position: relative;
-        }
-        .filerobot-wrapper:has(> input[data-tool-count="4"]) .FIE_canvas-container {
-            min-height: 300px;
-        }
-        .filerobot-wrapper:has(> input[data-tool-count="5"]) .FIE_canvas-container {
-            min-height: 350px;
-        }
-        .filerobot-wrapper:has(> input[data-tool-count="6"]) .FIE_canvas-container {
-            min-height: 400px;
-        }
-        .filerobot-widget-container:has(> img) {
-            height: 400px;
-            overflow: hidden;
-        }
-        .filerobot-widget-container > img {
-            height: 100%;
-            object-fit: contain;
-            object-position: center left;
-        }
-        .filerobot-widget textarea,
-        .filerobot-widget input {
-            all: unset;
-        }
-        
-    </style>
+
+    {% for script in widget.tpl_data %}
+        {{ script|safe }}
+    {% endfor %}
+    
     <div class="filerobot-widget-container" data-widget="{{ widget.name }}" id="{{ widget.attrs.id }}-filerobot-widget"></div>
 </div>

@@ -1,0 +1,49 @@
+.FIE_root {
+    position: relative;
+}
+.filerobot-wrapper:has(> input[data-tool-count="4"]) .FIE_canvas-container {
+    min-height: 300px;
+}
+.filerobot-wrapper:has(> input[data-tool-count="5"]) .FIE_canvas-container {
+    min-height: 350px;
+}
+.filerobot-wrapper:has(> input[data-tool-count="6"]) .FIE_canvas-container {
+    min-height: 400px;
+}
+.filerobot-widget-container:has(> img) {
+    height: 400px;
+    overflow: hidden;
+}
+.filerobot-widget-container > img {
+    height: 100%;
+    object-fit: contain;
+    object-position: center left;
+}
+.filerobot-widget textarea,
+.filerobot-widget input {
+    all: unset;
+}
+.filerobot-widget-container,
+.SfxModal-Wrapper {
+    & input[type=date], input[type=datetime-local], input[type=email], input[type=file], input[type=month], input[type=number], input[type=password], input[type=search], input[type=tel], input[type=text], input[type=time], input[type=url], input[type=week], textarea {
+        display: block;
+        color: inherit;
+        width: 100%;
+        min-width: fit-content;
+        margin: 0px;
+        padding: 0px;
+        border: 0px;
+        background-color: transparent;
+        outline: none;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 16px;
+        min-height: unset;
+    }
+    & input:focus,
+    & input:focus-visible {
+        outline: unset !important;
+    }
+}

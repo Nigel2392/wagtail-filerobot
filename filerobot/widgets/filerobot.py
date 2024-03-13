@@ -216,7 +216,7 @@ class FileRobotWidget(widgets.Input):
     class Media:
         css = {
             "all": (
-                "filerobot/css/file_robot_widget.css",
+                "filerobot/css/filerobot_widget.css",
             )
         }
         js = (
