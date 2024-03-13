@@ -15,16 +15,17 @@ def get_collection_for_request(request: HttpRequest) -> Collection:
     if not request.user.is_authenticated:
         raise ValueError("User is not authenticated")
     
-    collection: Collection = Collection.objects.filter(
+    root: Collection = Collection.get_first_root_node()
+    collection: Collection = root.get_children().filter(
         name=FILEROBOT_COLLECTION_NAME,
-        depth=1,
+        depth=2,
     ).first()
 
     if collection is None:
-        raise ValueError("No collection found")
+        raise ValueError("No filerobot collection found")
     
     user_collection: Collection = collection.get_children().filter(
-        depth=2,
+        depth=3,
         path__startswith=collection.path,
         name=request.user.username,
     ).first()

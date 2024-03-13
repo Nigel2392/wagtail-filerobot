@@ -3,13 +3,15 @@ from wagtail.models import Collection
 from filerobot import FILEROBOT_COLLECTION_NAME
 
 def create_filerobot_collection(sender, **kwargs):
-    if Collection.objects.filter(name=FILEROBOT_COLLECTION_NAME, depth=1).exists():
+    root: Collection = Collection.get_first_root_node()
+
+    if root.get_children().filter(name=FILEROBOT_COLLECTION_NAME, depth=2).exists():
         return
     
-    Collection.add_root(
+    root.add_child(
         name=FILEROBOT_COLLECTION_NAME,
     )
-
+    
 
 
 post_migrate.connect(create_filerobot_collection)
