@@ -1,20 +1,27 @@
+from typing import TYPE_CHECKING
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from wagtail.images import get_image_model
 
-# Create your models here.
+if TYPE_CHECKING:
+    from wagtail.images.models import (
+        Image as WagtailImage,
+    )
+
+
 
 Image = get_image_model()
 
+
 class DesignState(models.Model):
 
-    image = models.ForeignKey(
+    image: "WagtailImage" = models.ForeignKey(
         Image,
         on_delete=models.CASCADE,
         related_name="design_state",
     )
 
-    designstate = models.JSONField(
+    designstate: dict = models.JSONField(
         verbose_name=_("Design State"),
         default=dict,
     )
@@ -28,3 +35,9 @@ class DesignState(models.Model):
         auto_now=True,
         verbose_name=_("Updated at"),
     )
+
+    class Meta:
+        verbose_name = _("Design State")
+        verbose_name_plural = _("Design States")
+        ordering = ("-updated_at",)
+        

@@ -7,6 +7,11 @@ from .widgets import FileRobotWidget
     
 
 class FilerobotBlock(blocks.ChooserBlock):
+    """
+        A custom block for editing your images with filerobot image editor.
+
+        Inherits from chooserblock for the purposes of validation.
+    """
     class Meta:
         icon = "image"
         template = "filerobot/blocks/filerobot.html"
@@ -55,7 +60,6 @@ class FilerobotBlock(blocks.ChooserBlock):
             value = value.image
 
         return super().value_for_form(value)
-
 
     @property
     def field(self):

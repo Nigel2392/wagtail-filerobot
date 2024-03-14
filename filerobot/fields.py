@@ -18,12 +18,12 @@ class ForwardFileRobotDescriptor(ForwardManyToOneDescriptor):
 
         super().__set__(instance, value)
 
-    def __get__(self, instance, owner):
+    def __get__(self, instance, owner) -> FilerobotImageValue:
         value = super().__get__(instance, owner)
         if value is None:
             return None
-
-        return FilerobotImageValue.from_image(self, value)
+        
+        return FilerobotImageValue.from_image(instance, value)
 
 
 class FileRobotField(models.ForeignKey):
@@ -131,20 +131,6 @@ class FileRobotField(models.ForeignKey):
             *args, **kwargs
         )
 
-
-    def to_python(self, value):
-        value = super().to_python(value)
-        if value is None:
-            return None
-        
-        return FilerobotImageValue.from_image(self, value)
-
-    
-    def get_prep_value(self, value: Any) -> Any:
-        if isinstance(value, FilerobotImageValue):
-            value = value.image
-
-        return super().get_prep_value(value)
 
     def deconstruct(self) -> Any:
         name, path, args, kwargs = super().deconstruct()
