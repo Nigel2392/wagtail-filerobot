@@ -48,8 +48,8 @@ class _JSONEncoder(json.JSONEncoder):
 
 
 _vars = [
-    "default_tab_index",
-    "default_tool_index",
+    "default_tab_id",
+    "default_tool_id",
     "use_backend_translations",
     "language",
     "avoid_changes_not_saved_alert_on_leave",
@@ -122,8 +122,8 @@ class FileRobotWidget(widgets.NumberInput):
             crop_preset_item: dict = None,
             cloud_image: dict = None,
 
-            default_tab_index: int = None,
-            default_tool_index: int = None,
+            default_tab_id: str = None,
+            default_tool_id: str = None,
             use_backend_translations: bool = None,
             language: str = None,
             avoid_changes_not_saved_alert_on_leave: bool = None,
@@ -160,8 +160,8 @@ class FileRobotWidget(widgets.NumberInput):
         self.crop_preset_item = crop_preset_item
         self.cloud_image = cloud_image
 
-        self.default_tab_index = default_tab_index
-        self.default_tool_index = default_tool_index
+        self.default_tab_id = default_tab_id
+        self.default_tool_id = default_tool_id
         self.use_backend_translations = use_backend_translations
         self.language = language
         self.avoid_changes_not_saved_alert_on_leave = avoid_changes_not_saved_alert_on_leave

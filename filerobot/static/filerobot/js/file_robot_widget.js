@@ -129,8 +129,8 @@ class FileRobotWidget {
         const { TABS, TOOLS } = FilerobotImageEditor;
 
         // Default tabs if none supplied (all)
-        if (bigCfg.obj_tabs === null) {
-            bigCfg.obj_tabs = [
+        if (bigCfg.tabsIds === null) {
+            bigCfg.tabsIds = [
                 TABS.ADJUST,
                 TABS.FINETUNE,
                 TABS.FILTERS,
@@ -156,7 +156,6 @@ class FileRobotWidget {
                 this.type = 'button';
             }
         });
-
 
         this.editorConfig = {
             // removeSaveButton: true,
@@ -196,6 +195,7 @@ class FileRobotWidget {
             _set_if_not_null(this.editorConfig, key, bigCfg[key]);
         }
 
+        this.fileInput.dataset.tabCount = bigCfg.tabsIds.length;
         const sourceImageID = this.fileInput.value;
         if (!sourceImageID) {
             this.constructFileInput();
@@ -222,11 +222,10 @@ class FileRobotWidget {
             makeRequest(this.submitUrl, 'POST', formData).then(data => {
                 if (data.success) {
                     this.fileInput.value = data.id;
-                    this.editorConfig.source = data.url;
                     if (this.editorConfig.loadableDesignState !== undefined) {
                         delete this.editorConfig.loadableDesignState;
                     }
-                    this.showImageEditor();
+                    this.showImageEditor(data.url);
                     // $(this.fileIn)
                 } else {
                     const errors = data.errors;
@@ -252,11 +251,10 @@ class FileRobotWidget {
         return makeRequest(this.submitUrl, 'GET', { image_id: sourceImageID }).then(data => {
             if (data.editable) {
                 this.fileInput.value = data.id;
-                this.editorConfig.source = data.url;
                 if (data.design_state) {
                     this._parseDesignState(data.design_state);
                 }
-                this.showImageEditor();
+                this.showImageEditor(data.url);
             } else {
                 let img = document.createElement('img');
                 img.src = data.url;
@@ -273,6 +271,7 @@ class FileRobotWidget {
         const blob = base64toBlob(base64Data, 'image/jpeg');
         const file = new File([blob], editedImageObject.fullName, { type: editedImageObject.mimeType });
         const formData = new FormData();
+        
         formData.append('file', file);
         formData.append('title', editedImageObject.name);
         formData.append('image_id', this.fileInput.value);
@@ -302,19 +301,27 @@ class FileRobotWidget {
         return p;
     }
 
-    showImageEditor() {
+    showImageEditor(url = null) {
         if (!this.filerobotImageEditor) {
             this.filerobotImageEditor = new FilerobotImageEditor(
                 this.fileRobot,
             );
         }
 
-        this.filerobotImageEditor.render(this.editorConfig);
+
+        let cpy = Object.assign({}, this.editorConfig);
+
+        if (url) {
+            cpy.source = url;
+        }
+
+        this.filerobotImageEditor.render(cpy);
 
     }
 
     terminateImageEditor() {
         this.filerobotImageEditor.terminate();
+        delete this.filerobotImageEditor;
     }
 
     setState(value) {

@@ -1,6 +1,9 @@
 .FIE_root {
     position: relative;
 }
+.FIE_canvas-container {
+    resize: vertical;
+}
 .filerobot-wrapper:has(> input[data-tool-count="4"]) .FIE_canvas-container {
     min-height: 300px;
 }
