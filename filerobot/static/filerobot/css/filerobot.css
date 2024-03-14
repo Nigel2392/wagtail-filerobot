@@ -1,0 +1,9 @@
+.filerobot-image-wrapper {
+    display: flex;
+    width: 100%;
+}
+.filerobot-image {
+    flex: 1;
+    width: 100%;
+    height: auto;
+}

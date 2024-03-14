@@ -1,13 +1,34 @@
 from typing import Any
 from django.db import models
+from django.db.models.fields.related_descriptors import (
+    ForwardManyToOneDescriptor,
+)
 from wagtail.images import get_image_model_string
-from .forms import FileRobotField as FileRobotFormField
+from .value import (
+    FilerobotImageValue,
+)
 from .widgets import FileRobotWidget, Theme
 
 
 
+class ForwardFileRobotDescriptor(ForwardManyToOneDescriptor):
+    def __set__(self, instance, value):
+        if isinstance(value, FilerobotImageValue):
+            value = value.image
+
+        super().__set__(instance, value)
+
+    def __get__(self, instance, owner):
+        value = super().__get__(instance, owner)
+        if value is None:
+            return None
+
+        return FilerobotImageValue.from_image(self, value)
+
 
 class FileRobotField(models.ForeignKey):
+    forward_related_accessor_class = ForwardFileRobotDescriptor
+
     def __init__(self,
             tabs: list[str] = None,
             theme: Theme = None,
@@ -110,12 +131,28 @@ class FileRobotField(models.ForeignKey):
             *args, **kwargs
         )
 
+
+    def to_python(self, value):
+        value = super().to_python(value)
+        if value is None:
+            return None
+        
+        return FilerobotImageValue.from_image(self, value)
+
+    
+    def get_prep_value(self, value: Any) -> Any:
+        if isinstance(value, FilerobotImageValue):
+            value = value.image
+
+        return super().get_prep_value(value)
+
     def deconstruct(self) -> Any:
         name, path, args, kwargs = super().deconstruct()
         if "to" in kwargs:
             del kwargs["to"]
 
         kwargs["widget_kwargs"] = self.widget_kwargs
+
         return name, path, args, kwargs
 
     def formfield(self, **kwargs):

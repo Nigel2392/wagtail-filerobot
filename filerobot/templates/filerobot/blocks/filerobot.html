@@ -1,0 +1,5 @@
+{% load filerobot %}
+<div class="filerobot-image-wrapper">
+    {% filerobot_image self filter_spec|default:"original" as image %}
+    <img src="{{ image.url }}" alt="{{ self.alt }}" class="filerobot-image" />
+</div>

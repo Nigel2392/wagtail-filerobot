@@ -1,5 +1,7 @@
+from typing import Any
 from django import forms
 from wagtail.images import get_image_model
+from .value import FilerobotImageValue
 from .widgets import FileRobotWidget
 
 
@@ -21,6 +23,21 @@ class FileRobotField(forms.ModelChoiceField):
             raise ValueError("queryset must be a queryset of image objects")
 
         super().__init__(queryset, *args, **kwargs)
+
+    def to_python(self, value):
+        value = super().to_python(value)
+        if value is None:
+            return None
+        
+        return FilerobotImageValue.from_image(self, value)
+        
+    
+    def prepare_value(self, value):
+        if isinstance(value, FilerobotImageValue):
+            value = value.image
+
+        return super().prepare_value(value)
+
 
     @property   
     def widget(self):

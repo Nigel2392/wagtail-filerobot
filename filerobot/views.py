@@ -39,8 +39,6 @@ def get_collection_for_request(request: HttpRequest) -> Collection:
 
 
 
-    
-
 # Create your views here.
 def file_view(request):
     if request.method == "POST":
