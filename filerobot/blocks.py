@@ -2,8 +2,8 @@ from django.utils.translation import gettext_lazy as _
 from wagtail import blocks
 from wagtail.images import get_image_model
 from .value import FilerobotImageValue
-from .forms import FileRobotField
-from .widgets import FileRobotWidget
+from .forms import FilerobotField
+from .widgets import FilerobotWidget
     
 
 class FilerobotBlock(blocks.ChooserBlock):
@@ -63,7 +63,7 @@ class FilerobotBlock(blocks.ChooserBlock):
 
     @property
     def field(self):
-        return FileRobotField(
+        return FilerobotField(
             widget_kwargs=self.widget_kwargs,
             queryset=self.get_queryset(),
             required=getattr(self.meta, "required", False),
@@ -79,7 +79,7 @@ class FilerobotBlock(blocks.ChooserBlock):
 
     @property
     def widget(self):
-        return FileRobotWidget(**self.widget_kwargs)
+        return FilerobotWidget(**self.widget_kwargs)
 
 
     @widget.setter

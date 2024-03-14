@@ -22,9 +22,9 @@ Quick start
    from wagtail.models import Page
    from wagtail.admin.panels import FieldPanel
 
-   from filerobot.widgets import FileRobotWidget
+   from filerobot.widgets import FilerobotWidget
    from filerobot.blocks import FilerobotBlock as FilerobotBlock
-   from filerobot.fields import FileRobotField as FileRobotImageField
+   from filerobot.fields import FilerobotField as FilerobotImageField
 
 
    class HomePage(Page):
@@ -37,7 +37,7 @@ Quick start
        )
 
        # As an automatic foreign key field!
-       filerobot_image = FileRobotImageField(
+       filerobot_image = FilerobotImageField(
            tabs=[
                "Finetune",
                "Filters",
@@ -50,7 +50,7 @@ Quick start
 
        content_panels = [
            # As a widget!
-           FieldPanel('image', widget=FileRobotWidget(tabs=[
+           FieldPanel('image', widget=FilerobotWidget(tabs=[
                "Finetune",
                "Filters",
                "Adjust",

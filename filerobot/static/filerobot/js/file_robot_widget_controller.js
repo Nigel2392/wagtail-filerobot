@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const noCrossOrigin = element.getAttribute('data-file-robot-widget-no-cross-origin') === 'true';
             const disableSaveIfNoChanges = element.getAttribute('data-file-robot-widget-disable-save-if-no-changes') === 'true';
             
-            const widget = new FileRobotWidget(
+            const widget = new FilerobotWidget(
                 element.id,
                 submit,
                 {
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
             );
         });
     } else {
-        console.debug('StimulusModule is defined, using Stimulus for FileRobotWidget')
+        console.debug('StimulusModule is defined, using Stimulus for FilerobotWidget')
     }
 });
 
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-class FileRobotWidgetController extends window.StimulusModule.Controller {
+class FilerobotWidgetController extends window.StimulusModule.Controller {
     static values = { 
         submit: { type: String },
         defaultTabId: { type: String },
@@ -81,7 +81,7 @@ class FileRobotWidgetController extends window.StimulusModule.Controller {
             
         });
 
-        this.widget = new FileRobotWidget(
+        this.widget = new FilerobotWidget(
             this.element.id,
             this.submitValue,
             {
@@ -111,4 +111,4 @@ class FileRobotWidgetController extends window.StimulusModule.Controller {
     }
 }
 
-window.wagtail.app.register('file-robot-widget', FileRobotWidgetController);
+window.wagtail.app.register('file-robot-widget', FilerobotWidgetController);

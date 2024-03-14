@@ -2,14 +2,14 @@ from typing import Any
 from django import forms
 from wagtail.images import get_image_model
 from .value import FilerobotImageValue
-from .widgets import FileRobotWidget
+from .widgets import FilerobotWidget
 
 
 
 image = get_image_model()
 
 
-class FileRobotField(forms.ModelChoiceField):
+class FilerobotField(forms.ModelChoiceField):
     
     def __init__(self, widget_kwargs = None, queryset = None, *args, **kwargs):
         if widget_kwargs is None:
@@ -41,7 +41,7 @@ class FileRobotField(forms.ModelChoiceField):
 
     @property   
     def widget(self):
-        return FileRobotWidget(**self.widget_kwargs)
+        return FilerobotWidget(**self.widget_kwargs)
     
     @widget.setter
     def widget(self, value):

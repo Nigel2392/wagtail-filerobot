@@ -7,11 +7,11 @@ from wagtail.images import get_image_model_string
 from .value import (
     FilerobotImageValue,
 )
-from .widgets import FileRobotWidget, Theme
+from .widgets import FilerobotWidget, Theme
 
 
 
-class ForwardFileRobotDescriptor(ForwardManyToOneDescriptor):
+class ForwardFilerobotDescriptor(ForwardManyToOneDescriptor):
     def __set__(self, instance, value):
         if isinstance(value, FilerobotImageValue):
             value = value.image
@@ -26,8 +26,8 @@ class ForwardFileRobotDescriptor(ForwardManyToOneDescriptor):
         return FilerobotImageValue.from_image(instance, value)
 
 
-class FileRobotField(models.ForeignKey):
-    forward_related_accessor_class = ForwardFileRobotDescriptor
+class FilerobotField(models.ForeignKey):
+    forward_related_accessor_class = ForwardFilerobotDescriptor
 
     def __init__(self,
             tabs: list[str] = None,
@@ -146,7 +146,7 @@ class FileRobotField(models.ForeignKey):
             del kwargs["widget"]
         
         return super().formfield(
-            widget=FileRobotWidget(**self.widget_kwargs),
+            widget=FilerobotWidget(**self.widget_kwargs),
             **kwargs
         )
 

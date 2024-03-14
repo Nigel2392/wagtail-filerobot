@@ -1,5 +1,5 @@
 from .filerobot import (
-    FileRobotWidget,
+    FilerobotWidget,
 )
 from .theme import (
     Theme

@@ -98,7 +98,7 @@ def _json_script(data, id: str) -> str:
         mark_safe(json.dumps(data, cls=_JSONEncoder)),
     )
 
-class FileRobotWidget(widgets.NumberInput):
+class FilerobotWidget(widgets.NumberInput):
     input_type = "hidden"
     template_name = "filerobot/widgets/file_robot_widget.html"
 
