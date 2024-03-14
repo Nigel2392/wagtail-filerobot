@@ -93,6 +93,7 @@ function _set_if_not_null(obj, key, value) {
     }
 }
 
+
 class FilerobotWidget {
     constructor(querySelector, submitUrl, simpleConfig) {
         // URL to fetch and send data from/to.

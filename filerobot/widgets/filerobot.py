@@ -194,6 +194,9 @@ class FilerobotWidget(widgets.NumberInput):
         return context
 
     def build_attrs(self, base_attrs, extra_attrs = None):
+        """
+            Builds the attributes for the stimulus controller.
+        """
         attrs = super().build_attrs(base_attrs, extra_attrs)
         attrs.update({
             "data-controller": "file-robot-widget",

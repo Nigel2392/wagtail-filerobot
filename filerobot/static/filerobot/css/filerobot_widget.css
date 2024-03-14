@@ -1,16 +1,19 @@
-.FIE_root {
+.FIE_root.FIE_root {
     position: relative;
+    overflow-x: hidden;
+    align-items: flex-start;
 }
 .FIE_canvas-container {
     resize: vertical;
+    max-height: 85vh;
 }
-.filerobot-wrapper:has(> input[data-tool-count="4"]) .FIE_canvas-container {
+.filerobot-wrapper:has(> input[data-tab-count="4"]) .FIE_canvas-container {
     min-height: 300px;
 }
-.filerobot-wrapper:has(> input[data-tool-count="5"]) .FIE_canvas-container {
+.filerobot-wrapper:has(> input[data-tab-count="5"]) .FIE_canvas-container {
     min-height: 350px;
 }
-.filerobot-wrapper:has(> input[data-tool-count="6"]) .FIE_canvas-container {
+.filerobot-wrapper:has(> input[data-tab-count="6"]) .FIE_canvas-container {
     min-height: 400px;
 }
 .filerobot-widget-container:has(> img) {
@@ -25,6 +28,15 @@
 .filerobot-widget textarea,
 .filerobot-widget input {
     all: unset;
+}
+.FIE_main-container {
+    max-width: 840px;
+}
+.FIE_topbar.FIE_topbar {
+    max-width: 1024px;
+}
+.FIE_tabs.FIE_tabs {
+    gap: 0;
 }
 .filerobot-widget-container,
 .SfxModal-Wrapper {
