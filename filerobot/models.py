@@ -14,6 +14,17 @@ Image = get_image_model()
 
 
 class DesignState(models.Model):
+    """
+        Model to store the design state of an image.
+        
+        This is so the user can continue editing the image
+        where they left off after saving the page.
+
+        The design state is stored as a JSON field.
+        
+        This gets passed to the javascript widget
+        when it fetches the image from `views.file_view`.
+    """
 
     image: "WagtailImage" = models.ForeignKey(
         Image,

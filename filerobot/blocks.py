@@ -25,10 +25,17 @@ class FilerobotBlock(blocks.ChooserBlock):
 
 
     def get_queryset(self):
+        """
+            The allowed queryset for the widget.
+            Chosen Images must always be contained in this queryset.
+        """
         return self.model_class.objects.all()
 
 
     def to_python(self, value):
+        """
+            Convert the value to a FilerobotImageValue.
+        """
         value = super().to_python(value)
         if value is None:
             return None
@@ -37,6 +44,9 @@ class FilerobotBlock(blocks.ChooserBlock):
 
     
     def get_prep_value(self, value):
+        """
+            Convert the value back to something usable by the database.
+        """
         if isinstance(value, FilerobotImageValue):
             value = value.image
 
@@ -44,7 +54,9 @@ class FilerobotBlock(blocks.ChooserBlock):
 
 
     def value_from_form(self, value):
-
+        """
+            Convert the value from the form to a FilerobotImageValue.
+        """
         if isinstance(value, FilerobotImageValue):
             value = value.image
 
@@ -56,6 +68,9 @@ class FilerobotBlock(blocks.ChooserBlock):
         return value
 
     def value_for_form(self, value):
+        """
+            Convert the value to one that can be used in the form.
+        """
         if isinstance(value, FilerobotImageValue):
             value = value.image
 
@@ -63,6 +78,9 @@ class FilerobotBlock(blocks.ChooserBlock):
 
     @property
     def field(self):
+        """
+            The formfield to represent the block.
+        """
         return FilerobotField(
             widget_kwargs=self.widget_kwargs,
             queryset=self.get_queryset(),
@@ -71,16 +89,16 @@ class FilerobotBlock(blocks.ChooserBlock):
             validators=getattr(self.meta, "validators", ()),
         )
 
-
     @field.setter
     def field(self, value):
         pass
 
-
     @property
     def widget(self):
+        """
+            The widget to represent the block.
+        """
         return FilerobotWidget(**self.widget_kwargs)
-
 
     @widget.setter
     def widget(self, value):

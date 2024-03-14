@@ -1,6 +1,4 @@
 from .filerobot import (
     FilerobotWidget,
 )
-from .theme import (
-    Theme
-)
+from .obj import *

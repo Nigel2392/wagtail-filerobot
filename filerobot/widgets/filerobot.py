@@ -1,5 +1,6 @@
 from django.forms import widgets
 from django.urls import reverse
+from django.utils import translation
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.templatetags.static import static
@@ -7,7 +8,10 @@ import json
 
 from wagtail.images import get_image_model
 
-from .theme import Theme
+from . import obj
+from ..constants import (
+    TABS_IDS,
+)
 
 Image = get_image_model()
 
@@ -29,12 +33,12 @@ class HTMLMediaSource:
         )
 
 DEFAULT_TABS = [
-    "Finetune",
-    "Filters",
-    "Adjust",
-    "Watermark",
-    "Annotate",
-    "Resize",
+    TABS_IDS.FINETUNE,
+    TABS_IDS.FILTERS,
+    TABS_IDS.ADJUST,
+    TABS_IDS.WATERMARK,
+    TABS_IDS.ANNOTATE,
+    TABS_IDS.RESIZE,
 ]
 
 
@@ -103,44 +107,53 @@ class FilerobotWidget(widgets.NumberInput):
     template_name = "filerobot/widgets/file_robot_widget.html"
 
     def __init__(self,
-            tabs: list[str] = None,
-            theme: Theme = None,
-            annotations_common: dict = None,
-            text: dict = None,
-            image: dict = None,
-            rect: dict = None,
-            ellipse: dict = None,
-            polygon: dict = None,
-            pen: dict = None,
-            line: dict = None,
-            arrow: dict = None,
-            watermark: dict = None,
-            rotate: dict = None,
-            crop: dict = None,
-            crop_preset_folder: dict = None,
-            crop_preset_group: dict = None,
-            crop_preset_item: dict = None,
-            cloud_image: dict = None,
+            # Objects types for the widget.
+            # These are rendered as JSON in a list
+            # of django.utils.html.json_script tags.
+            tabs:               list[str]             = None, # Tabs defined in constants.py
+            theme:              obj.Theme             = None,
+            annotations_common: obj.AnnotationsCommon = None,
+            text:               obj.Text              = None,
+            image:              dict                  = None,
+            rect:               dict                  = None,
+            ellipse:            dict                  = None,
+            polygon:            dict                  = None,
+            pen:                dict                  = None,
+            line:               dict                  = None,
+            arrow:              dict                  = None,
+            watermark:          dict                  = None,
+            rotate:             dict                  = None,
+            crop:               dict                  = None,
+            crop_preset_folder: dict                  = None,
+            crop_preset_group:  dict                  = None,
+            crop_preset_item:   dict                  = None,
+            cloud_image:        dict                  = None,
 
-            default_tab_id: str = None,
-            default_tool_id: str = None,
-            use_backend_translations: bool = None,
-            language: str = None,
+            # Primitive types for the widget.
+            # These are passed in as data-attributes
+            # for the stimulus controller.
+            default_tab_id:                         str  = None, # Tabs defined in constants.py
+            default_tool_id:                        str  = None, # Tools defined in constants.py
+            use_backend_translations:               bool = None,
+            language:                               str  = None, # Inferred inside attrs by translation.get_language()
             avoid_changes_not_saved_alert_on_leave: bool = None,
-            default_saved_image_quality: int = None,
-            force_to_png_in_elliptical_crop: bool = None,
-            use_cloud_image: bool = None,
-            saving_pixel_ratio: int = None,
-            preview_pixel_ratio: int = None,
-            observe_plugin_container_size: bool = None,
-            show_canvas_only: bool = None,
-            use_zoom_presets_menu: bool = None,
-            disable_zooming: bool = None,
-            no_cross_origin: bool = None,
-            disable_save_if_no_changes: bool = None,
-            attrs: dict = None,
+            default_saved_image_quality:            int  = None,
+            force_to_png_in_elliptical_crop:        bool = None,
+            use_cloud_image:                        bool = None,
+            saving_pixel_ratio:                     int  = None,
+            preview_pixel_ratio:                    int  = None,
+            observe_plugin_container_size:          bool = None,
+            show_canvas_only:                       bool = None,
+            use_zoom_presets_menu:                  bool = None,
+            disable_zooming:                        bool = None,
+            no_cross_origin:                        bool = None,
+            disable_save_if_no_changes:             bool = None,
+
+            # Widget attrs
+            attrs:                                      dict              = None,
         ) -> None:
 
+        # Objects
         self.tabs = tabs or DEFAULT_TABS
         self.theme = theme
         self.annotations_common = annotations_common
@@ -159,7 +172,8 @@ class FilerobotWidget(widgets.NumberInput):
         self.crop_preset_group = crop_preset_group
         self.crop_preset_item = crop_preset_item
         self.cloud_image = cloud_image
-
+        
+        # Primitive types
         self.default_tab_id = default_tab_id
         self.default_tool_id = default_tool_id
         self.use_backend_translations = use_backend_translations
@@ -205,8 +219,19 @@ class FilerobotWidget(widgets.NumberInput):
             ),
         })
 
+        # Default variables if not specified
+        defaults = {
+            "language": translation.get_language(),
+        }
+
         for var in _vars:
             value = getattr(self, var)
+
+            # Get from defaults
+            if value is None:
+                value = defaults.get(var)
+
+            # Add data attributes for stimulus controller
             var = var.replace("_", "-")
             if value is not None:
                 attrs[f"data-file-robot-widget-{var}-value"] = json.dumps(

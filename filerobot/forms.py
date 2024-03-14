@@ -10,7 +10,12 @@ image = get_image_model()
 
 
 class FilerobotField(forms.ModelChoiceField):
-    
+    """
+        Formfield to represent the FilerobotField.
+        The filerobot widget is only compatible 
+        with the wagtail image model.
+    """
+
     def __init__(self, widget_kwargs = None, queryset = None, *args, **kwargs):
         if widget_kwargs is None:
             widget_kwargs = {}
@@ -30,14 +35,12 @@ class FilerobotField(forms.ModelChoiceField):
             return None
         
         return FilerobotImageValue.from_image(self, value)
-        
-    
+
     def prepare_value(self, value):
         if isinstance(value, FilerobotImageValue):
             value = value.image
 
         return super().prepare_value(value)
-
 
     @property   
     def widget(self):

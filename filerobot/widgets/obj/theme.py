@@ -1,10 +1,8 @@
-def _set_themevalue_if(d, key, value):
-    if value is not None:
-        key = key.replace("_", "-")
-        d[key] = value
+from .utils import notNoneDict
+from django.utils.deconstruct import deconstructible
 
+@deconstructible
 class Theme:
-
     def __init__(
             self,
             bg_primary: str = None,
@@ -37,23 +35,21 @@ class Theme:
         self.font_family = font_family
 
     def _json(self):
-        palette = {}
-        typography = {}
-        if self.font_family is not None:
-            typography["font-family"] = self.font_family
-
-        _set_themevalue_if(palette, "bg-primary", self.bg_primary)
-        _set_themevalue_if(palette, "bg-primary-active", self.bg_primary_active)
-        _set_themevalue_if(palette, "bg-secondary", self.bg_secondary)
-        _set_themevalue_if(palette, "accent-primary", self.accent_primary)
-        _set_themevalue_if(palette, "accent-primary-active", self.accent_primary_active)
-        _set_themevalue_if(palette, "icons-primary", self.icons_primary)
-        _set_themevalue_if(palette, "icons-secondary", self.icons_secondary)
-        _set_themevalue_if(palette, "borders-primary", self.borders_primary)
-        _set_themevalue_if(palette, "borders-secondary", self.borders_secondary)
-        _set_themevalue_if(palette, "borders-strong", self.borders_strong)
-        _set_themevalue_if(palette, "light-shadow", self.light_shadow)
-        _set_themevalue_if(palette, "warning", self.warning)
+        palette = notNoneDict()
+        typography = notNoneDict()
+        typography["font-family"]        = self.font_family
+        palette["bg-primary"]            = self.bg_primary
+        palette["bg-primary-active"]     = self.bg_primary_active
+        palette["bg-secondary"]          = self.bg_secondary
+        palette["accent-primary"]        = self.accent_primary
+        palette["accent-primary-active"] = self.accent_primary_active
+        palette["icons-primary"]         = self.icons_primary
+        palette["icons-secondary"]       = self.icons_secondary
+        palette["borders-primary"]       = self.borders_primary
+        palette["borders-secondary"]     = self.borders_secondary
+        palette["borders-strong"]        = self.borders_strong
+        palette["light-shadow"]          = self.light_shadow
+        palette["warning"]               = self.warning
 
         return {
             "palette": palette,
