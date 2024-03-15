@@ -208,6 +208,12 @@
     background-color: var(--w-color-surface-menus);
     color: var(--w-color-text-label-menus-default);
 }
+.SfxModal-Container.SfxModal-Container .SfxModalTitle-Icon {
+    background-color: var(--w-color-surface-menu-item-active);
+}
+.SfxModal-Container.SfxModal-Container .SfxModalTitle-Icon svg {
+    fill: var(--w-color-text-label-menus-active);
+}
 .SfxModal-Container.SfxModal-Container .SfxInput-Icon,
 .SfxModal-Container.SfxModal-Container label,
 .SfxModalTitle-LabelPrimary {
