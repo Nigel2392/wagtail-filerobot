@@ -82,6 +82,13 @@
     color: var(--w-color-surface-button-default);
     background-color: transparent;
 }
+.SfxModal-Container .SfxSlider-root.SfxSlider-root {
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+}
+.SfxModal-Container .FIE_save-resize-wrapper {
+    margin-top: 0 !important;
+}
 .SfxSlider-Track.SfxSlider-Track,
 .SfxSlider-thumb.SfxSlider-thumb {
     color: var(--w-color-surface-button-default) !important;
@@ -105,7 +112,15 @@
 .FIE_editor-content {
     gap: 1rem;
 }
-
+/*
+.FIE_editor-content .FIE_canvas-node,
+.FIE_editor-content .FIE_canvas-node:hover,
+.FIE_editor-content .FIE_canvas-node:focus,
+.FIE_editor-content .FIE_canvas-node:focus-within,
+.FIE_editor-content .FIE_canvas-node:focus-visible {
+    outline: none !important;
+}
+*/
 .FIE_root .SfxDrawer-temporary .SfxDrawer-root {
     box-shadow: 3px 3px 3px var(--w-color-secondary);
     background-color: var(--w-color-surface-menus);
@@ -213,6 +228,8 @@
 }
 .SfxModal-Container.SfxModal-Container .SfxModalTitle-Icon svg {
     fill: var(--w-color-text-label-menus-active);
+    width: 32px;
+    height: 32px;
 }
 .SfxModal-Container.SfxModal-Container .SfxInput-Icon,
 .SfxModal-Container.SfxModal-Container label,
