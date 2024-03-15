@@ -103,7 +103,7 @@ class FilerobotWidget {
         this.fileInputWrapper = document.querySelector(`#${querySelector}-filerobot-widget-wrapper`);
         this.fileInput = this.fileInputWrapper.querySelector(`#${querySelector}`);
         this.fileRobot = this.fileInputWrapper.querySelector(`#${querySelector}-filerobot-widget`);
-        this.hasChanged = false;
+        let hasChanged = false;
 
         const bigCfg = {
             translations:         parseJsonScript('#filerobot-translations'),
@@ -160,18 +160,20 @@ class FilerobotWidget {
         });
 
         if (simpleConfig.shouldAutoSave) {
-            const form = $(this.fileInputWrapper).closest('[data-edit-form]');
             let isFormSubmit = false;
-            form.on('submit', (e) => {
-                if (isFormSubmit || !this.hasChanged) {
+            $('[data-edit-form] :submit').on('click', (e) => {
+                if (isFormSubmit || !hasChanged) {
                     return;
                 }
+
+                e.stopImmediatePropagation();
                 e.preventDefault();
+
                 isFormSubmit = true;
                 const { imageData, designState } = this.filerobotImageEditor.getCurrentImgData();
                 this.onSave(imageData, designState).then(data => {
                     if (data.success) {
-                        form.submit();
+                        e.currentTarget.click();
                     } else {
                         isFormSubmit = false;
                     }
@@ -181,16 +183,14 @@ class FilerobotWidget {
             console.warn(`[FilerobotWidget] Auto save after form submit is disabled for ${querySelector}`);
         }
 
-        console.log(simpleConfig);
-
         this.editorConfig = {
             // removeSaveButton: true,
             disableSaveIfNoChanges: true,
             onSave: this.onSave.bind(this),
             onModify: () => {
-                this.hasChanged = true;
+                hasChanged = true;
             },
-            onClose: () => {
+            onClose: (closingReason, haveNotSavedChanges) => {
                 // Terminate the editor and ask the user for another file.
                 this.terminateImageEditor();
                 this.fileInput.value = '';
