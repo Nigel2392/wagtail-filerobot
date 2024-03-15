@@ -151,10 +151,10 @@ class FilerobotWidget {
 
         // Prevent form submission on button click
         // I do not get why the authors of filerobot have not done this.
-        $(document).on('click', '.FIE_root button', function(e) {
-            if (this.type !== 'button') {
-                e.preventDefault();
-                this.type = 'button';
+        $(document).on('click', '.filerobot-widget-container button', function(e) {
+            e.preventDefault();
+            if (this.tagName === 'BUTTON' && this.type != 'button') {
+                this.type = 'button';   
             }
         });
 

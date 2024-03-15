@@ -67,15 +67,14 @@
     margin: 0 8px;
     color: var(--w-color-text-context);
 }
+.SfxModalTitle-Close .SfxCrossButton-root,
 .FIE_topbar-close-button.SfxCrossButton-root {
     color: var(--w-color-surface-button-default);
     background-color: transparent;
 }
+.SfxModalTitle-Close .SfxCrossButton-root:hover,
 .FIE_topbar-close-button.SfxCrossButton-root:hover {
     color: var(--w-color-surface-button-hover);
-    background-color: transparent;
-}
-.SfxModalTitle-Close .SfxCrossButton-root:hover {
     background-color: transparent;
 }
 .SfxIconButton-root.SfxIconButton-root {
@@ -168,7 +167,7 @@
 
 .SfxButton-root[color="basic"]:focus,
 .SfxButton-root[color="basic"]:hover {
-    background-color: transparent;
+    background-color: var(--w-color-surface-button-hover);
     color: var(--w-color-text-button) !important;
 }
 .SfxButton-root[color="basic"].FIE_tabs_toggle_btn:hover svg,
@@ -201,6 +200,9 @@
     background-color: var(--w-color-surface-button-hover) !important;
     color: var(--w-color-text-button) !important;
 }
+.FIE_resize-ratio-locker.FIE_resize-ratio-locker {
+    background-color: transparent !important;
+}
 .FIE_tools-item-wrapper .SfxLabel-text {
     color: var(--w-color-text-context);
 }
@@ -219,6 +221,7 @@
 .SfxMenu-root.SfxMenu-root > *,
 .SfxMenuItem-root.SfxMenuItem-root,
 .SfxMenuItem-root.SfxMenuItem-root label,
+.SfxModalTitle-root.SfxModalTitle-root,
 .SfxModal-Container.SfxModal-Container {
     background-color: var(--w-color-surface-menus);
     color: var(--w-color-text-label-menus-default);
