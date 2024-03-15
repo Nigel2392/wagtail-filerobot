@@ -103,6 +103,7 @@ class FilerobotWidget {
         this.fileInputWrapper = document.querySelector(`#${querySelector}-filerobot-widget-wrapper`);
         this.fileInput = this.fileInputWrapper.querySelector(`#${querySelector}`);
         this.fileRobot = this.fileInputWrapper.querySelector(`#${querySelector}-filerobot-widget`);
+        this.hasChanged = false;
 
         const bigCfg = {
             translations:         parseJsonScript('#filerobot-translations'),
@@ -158,10 +159,37 @@ class FilerobotWidget {
             }
         });
 
+        if (simpleConfig.shouldAutoSave) {
+            console.log('[FilerobotWidget] Auto save after form submit is enabled');
+            const form = $(this.fileInputWrapper).closest('[data-edit-form]');
+            let isFormSubmit = false;
+            form.on('submit', (e) => {
+                if (isFormSubmit || !this.hasChanged) {
+                    return;
+                }
+                e.preventDefault();
+                isFormSubmit = true;
+                const { imageData, designState } = this.filerobotImageEditor.getCurrentImgData();
+                console.log(`Form submitted, adding image ${imageData.fullName} to form`);
+                this.onSave(imageData, designState).then(data => {
+                    if (data.success) {
+                        form.submit();
+                    } else {
+                        isFormSubmit = false;
+                    }
+                });
+            });
+        } else {
+            console.warn(`[FilerobotWidget] Auto save after form submit is disabled for ${querySelector}`);
+        }
+
         this.editorConfig = {
             // removeSaveButton: true,
             disableSaveIfNoChanges: true,
             onSave: this.onSave.bind(this),
+            onModify: () => {
+                this.hasChanged = true;
+            },
             onClose: () => {
                 // Terminate the editor and ask the user for another file.
                 this.terminateImageEditor();
@@ -195,7 +223,7 @@ class FilerobotWidget {
         for (const key in bigCfg) {
             _set_if_not_null(this.editorConfig, key, bigCfg[key]);
         }
-
+        
         this.fileInput.dataset.tabCount = bigCfg.tabsIds.length;
         const sourceImageID = this.fileInput.value;
         if (!sourceImageID) {

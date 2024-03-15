@@ -89,6 +89,9 @@ _tpl_data = [
     ("CropPresetGroup", "crop_preset_group"),
     ("CropPresetItem", "crop_preset_item"),
     ("cloudimage", "cloud_image"),
+
+    # Custom
+    ("shouldAutoSave", "should_auto_save"),
 ]
 
 
@@ -149,6 +152,9 @@ class FilerobotWidget(widgets.NumberInput):
             disable_save_if_no_changes:             bool = None,
             typography:                             str  = None, # The font family to use across the theme.
 
+            # Save the image automatically when saving the Wagtail admin form.
+            should_auto_save:                       bool = True,
+
             # Widget attrs
             attrs:                                      dict              = None,
         ) -> None:
@@ -190,6 +196,9 @@ class FilerobotWidget(widgets.NumberInput):
         self.disable_zooming = disable_zooming
         self.no_cross_origin = no_cross_origin
         self.disable_save_if_no_changes = disable_save_if_no_changes
+
+        # Custom
+        self.should_auto_save = should_auto_save
 
         super().__init__(attrs=attrs)
 

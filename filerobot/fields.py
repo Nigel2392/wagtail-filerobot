@@ -88,6 +88,10 @@ class FilerobotField(models.ForeignKey):
             disable_save_if_no_changes:             bool = None,
             typography:                             str  = None, # The font family to use across the theme.
 
+            # Save the image automatically when saving the Wagtail admin form.
+            should_auto_save:                       bool = True,
+
+
             # Help the editor with autocompletion
             # Common fields
             verbose_name = None,
@@ -155,6 +159,7 @@ class FilerobotField(models.ForeignKey):
             "no_cross_origin":                        no_cross_origin,
             "disable_save_if_no_changes":             disable_save_if_no_changes,
             "typography":                             typography,
+            "should_auto_save":                       should_auto_save,
         }
 
         super().__init__(

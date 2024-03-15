@@ -25,8 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 element.id,
                 submit,
                 {
-                    defaultTabIdValue: defaultTabId,
-                    defaultToolIdValue: defaultToolId,
+                    defaultTabId: defaultTabId,
+                    defaultToolId: defaultToolId,
                     useBackendTranslations: useBackendTranslations,
                     language: language,
                     avoidChangesNotSavedAlertOnLeave: avoidChangesNotSavedAlertOnLeave,
@@ -72,6 +72,9 @@ class FilerobotWidgetController extends window.StimulusModule.Controller {
         disableZooming: { default: false, type: Boolean },
         noCrossOrigin: { default: false, type: Boolean },
         disableSaveIfNoChanges: { default: false, type: Boolean },
+
+        // Custom
+        shouldAutoSave: { default: true, type: Boolean },
     };
 
     connect() {
@@ -85,22 +88,25 @@ class FilerobotWidgetController extends window.StimulusModule.Controller {
             this.element.id,
             this.submitValue,
             {
-                defaultTabIdValue: this.defaultTabIdValue,
-                defaultToolIdValue: this.defaultToolIdValue,
-                useBackendTranslations: this.useBackendTranslationsValue,
-                language: this.languageValue,
+                defaultTabId:                     this.defaultTabIdValue,
+                defaultToolId:                    this.defaultToolIdValue,
+                useBackendTranslations:           this.useBackendTranslationsValue,
+                language:                         this.languageValue,
                 avoidChangesNotSavedAlertOnLeave: this.avoidChangesNotSavedAlertOnLeaveValue,
-                defaultSavedImageQuality: this.defaultSavedImageQualityValue,
-                forceToPngInEllipticalCrop: this.forceToPngInEllipticalCropValue,
-                useCloudImage: this.useCloudImageValue,
-                savingPixelRatio: this.savingPixelRatioValue,
-                previewPixelRatio: this.previewPixelRatioValue,
-                observePluginContainerSize: this.observePluginContainerSizeValue,
-                showCanvasOnly: this.showCanvasOnlyValue,
-                useZoomPresetsMenu: this.useZoomPresetsMenuValue,
-                disableZooming: this.disableZoomingValue,
-                noCrossOrigin: this.noCrossOriginValue,
-                disableSaveIfNoChanges: this.disableSaveIfNoChangesValue,
+                defaultSavedImageQuality:         this.defaultSavedImageQualityValue,
+                forceToPngInEllipticalCrop:       this.forceToPngInEllipticalCropValue,
+                useCloudImage:                    this.useCloudImageValue,
+                savingPixelRatio:                 this.savingPixelRatioValue,
+                previewPixelRatio:                this.previewPixelRatioValue,
+                observePluginContainerSize:       this.observePluginContainerSizeValue,
+                showCanvasOnly:                   this.showCanvasOnlyValue,
+                useZoomPresetsMenu:               this.useZoomPresetsMenuValue,
+                disableZooming:                   this.disableZoomingValue,
+                noCrossOrigin:                    this.noCrossOriginValue,
+                disableSaveIfNoChanges:           this.disableSaveIfNoChangesValue,
+                
+                // Custom
+                shouldAutoSave:                   this.shouldAutoSaveValue,
             }
         );
     }
