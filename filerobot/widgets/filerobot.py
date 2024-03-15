@@ -111,17 +111,16 @@ class FilerobotWidget(widgets.NumberInput):
             # These are rendered as JSON in a list
             # of django.utils.html.json_script tags.
             tabs:               list[str]             = None, # Tabs defined in constants.py
-            theme:              obj.Theme             = None,
             annotations_common: obj.AnnotationsCommon = None,
             text:               obj.Text              = None,
-            image:              dict                  = None,
-            rect:               dict                  = None,
-            ellipse:            dict                  = None,
-            polygon:            dict                  = None,
-            pen:                dict                  = None,
-            line:               dict                  = None,
-            arrow:              dict                  = None,
-            watermark:          dict                  = None,
+            image:              obj.Image             = None,
+            rect:               obj.Rect              = None,
+            ellipse:            obj.Ellipse           = None,
+            polygon:            obj.Polygon           = None,
+            pen:                obj.Pen               = None,
+            line:               obj.Line              = None,
+            arrow:              obj.Arrow             = None,
+            watermark:          obj.Watermark         = None,
             rotate:             dict                  = None,
             crop:               dict                  = None,
             crop_preset_folder: dict                  = None,
@@ -148,6 +147,7 @@ class FilerobotWidget(widgets.NumberInput):
             disable_zooming:                        bool = None,
             no_cross_origin:                        bool = None,
             disable_save_if_no_changes:             bool = None,
+            typography:                             str  = None, # The font family to use across the theme.
 
             # Widget attrs
             attrs:                                      dict              = None,
@@ -155,7 +155,7 @@ class FilerobotWidget(widgets.NumberInput):
 
         # Objects
         self.tabs = tabs or DEFAULT_TABS
-        self.theme = theme
+        self.theme = obj._make_theme(typography)
         self.annotations_common = annotations_common
         self.text = text
         self.image = image

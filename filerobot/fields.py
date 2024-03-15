@@ -50,17 +50,16 @@ class FilerobotField(models.ForeignKey):
             # These are rendered as JSON in a list
             # of django.utils.html.json_script tags.
             tabs:               list[str]             = None, # Tabs defined in constants.py
-            theme:              obj.Theme             = None,
             annotations_common: obj.AnnotationsCommon = None,
             text:               obj.Text              = None,
-            image:              dict                  = None,
-            rect:               dict                  = None,
-            ellipse:            dict                  = None,
-            polygon:            dict                  = None,
-            pen:                dict                  = None,
-            line:               dict                  = None,
-            arrow:              dict                  = None,
-            watermark:          dict                  = None,
+            image:              obj.Image             = None,
+            rect:               obj.Rect              = None,
+            ellipse:            obj.Ellipse           = None,
+            polygon:            obj.Polygon           = None,
+            pen:                obj.Pen               = None,
+            line:               obj.Line              = None,
+            arrow:              obj.Arrow             = None,
+            watermark:          obj.Watermark         = None,
             rotate:             dict                  = None,
             crop:               dict                  = None,
             crop_preset_folder: dict                  = None,
@@ -87,6 +86,7 @@ class FilerobotField(models.ForeignKey):
             disable_zooming:                        bool = None,
             no_cross_origin:                        bool = None,
             disable_save_if_no_changes:             bool = None,
+            typography:                             str  = None, # The font family to use across the theme.
 
             # Help the editor with autocompletion
             # Common fields
@@ -120,7 +120,6 @@ class FilerobotField(models.ForeignKey):
         self.widget_kwargs = widget_kwargs or {
             # Objects
             "tabs":                                   tabs,
-            "theme":                                  theme,
             "annotations_common":                     annotations_common,
             "text":                                   text,
             "image":                                  image,
@@ -155,6 +154,7 @@ class FilerobotField(models.ForeignKey):
             "disable_zooming":                        disable_zooming,
             "no_cross_origin":                        no_cross_origin,
             "disable_save_if_no_changes":             disable_save_if_no_changes,
+            "typography":                             typography,
         }
 
         super().__init__(

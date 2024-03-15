@@ -1,6 +1,5 @@
 .FIE_root.FIE_root {
     position: relative;
-    overflow-x: hidden;
     align-items: flex-start;
 }
 .FIE_canvas-container {
@@ -35,9 +34,6 @@
 .FIE_topbar.FIE_topbar {
     max-width: 1024px;
 }
-.FIE_tabs.FIE_tabs {
-    gap: 0;
-}
 .filerobot-widget-container,
 .SfxModal-Wrapper {
     & input[type=date], input[type=datetime-local], input[type=email], input[type=file], input[type=month], input[type=number], input[type=password], input[type=search], input[type=tel], input[type=text], input[type=time], input[type=url], input[type=week], textarea {
@@ -60,5 +56,161 @@
     & input:focus,
     & input:focus-visible {
         outline: unset !important;
+    }
+}
+
+/* Top toolbar */
+.FIE_topbar {
+
+}
+.FIE_topbar-zoom-label.FIE_topbar-zoom-label {
+    margin: 0 8px;
+    color: var(--w-color-text-context);
+}
+.FIE_topbar-close-button.SfxCrossButton-root {
+    color: var(--w-color-surface-button-default);
+    background-color: transparent;
+}
+.FIE_topbar-close-button.SfxCrossButton-root:hover {
+    color: var(--w-color-surface-button-hover);
+    background-color: transparent;
+}
+.SfxModalTitle-Close .SfxCrossButton-root:hover {
+    background-color: transparent;
+}
+.SfxIconButton-root.SfxIconButton-root {
+    color: var(--w-color-surface-button-default);
+    background-color: transparent;
+}
+.SfxSlider-Track.SfxSlider-Track,
+.SfxSlider-thumb.SfxSlider-thumb {
+    color: var(--w-color-surface-button-default) !important;
+    background-color: var(--w-color-surface-button-default) !important;
+}
+.SfxInput-root.SfxInput-root {
+    border: 1px solid var(--w-color-surface-button-default) !important;
+    background-color: var(--w-color-surface-menus) !important;
+    color: var(--w-color-text-label-menus-default);
+}
+.SfxInput-root.SfxInput-root:hover,
+.SfxInput-root.SfxInput-root:focus,
+.SfxInput-root.SfxInput-root:focus-within,
+.SfxInput-root.SfxInput-root:focus-visible {
+    border: 1px solid var(--w-color-surface-button-default) !important;
+    background-color: var(--w-color-surface-menus) !important;
+    color: var(--w-color-text-label-menus-default) !important;
+}
+
+/* Tabs */
+.FIE_editor-content {
+    gap: 1rem;
+}
+
+.FIE_root .SfxDrawer-temporary .SfxDrawer-root {
+    box-shadow: 3px 3px 3px var(--w-color-secondary);
+    background-color: var(--w-color-surface-menus);
+    color: var(--w-color-text-label-menus-default);
+    border-radius: 1em;
+}
+.SfxDrawer-header .SfxButton-root {
+    color: var(--w-color-text-label-menus-default);
+}
+.SfxDrawer-header .SfxButton-root:hover {
+    color: var(--w-color-text-label-menus-active);
+}
+.FIE_tabs.FIE_tabs {
+    background-color: transparent;
+    box-shadow: none;
+    gap: 0.25rem;
+}
+.FIE_root .SfxDrawer-temporary .SfxDrawer-root .SfxDrawer-item,
+.FIE_root .SfxDrawer-temporary .SfxDrawer-root .SfxDrawer-item:hover {
+    background-color: transparent;
+}
+.FIE_root .SfxDrawer-temporary .SfxDrawer-root .FIE_tab,
+.FIE_main-container .FIE_tabs .FIE_tab {
+    background-color: var(--w-color-surface-menus);
+    color: var(--w-color-text-label-menus-default);
+}
+.FIE_root .SfxDrawer-temporary .SfxDrawer-root .FIE_tab-label,
+.FIE_tabs.FIE_tabs .FIE_tab-label {
+    color: var(--w-color-text-label-menus-default);
+}
+.FIE_tab.FIE_tab[aria-selected="true"] {
+    background-color: var(--w-color-surface-menu-item-active);
+    color: var(--w-color-text-label-menus-active);
+}
+
+
+.SfxButton-root[color="basic"] {
+    border: 1px solid var(--w-color-surface-button-default);
+    color: var(--w-color-surface-button-default);
+}
+
+.SfxButton-root[color="basic"]:focus,
+.SfxButton-root[color="basic"]:hover {
+    background-color: transparent;
+    color: var(--w-color-text-button) !important;
+}
+.SfxButton-root[color="basic"]:focus svg,
+.SfxButton-root[color="basic"]:hover svg {
+    color: var(--w-color-text-button);
+}
+.FIE_tools-bar-wrapper .SfxIconButton-root,
+.FIE_canvas-container .SfxButton-root,
+.SfxButton-root[color="secondary"],
+.SfxButton-root[color="primary"] {
+    border: 1px solid var(--w-color-surface-button-default) !important;
+    background-color: var(--w-color-surface-button-default) !important;
+    color: var(--w-color-text-button) !important;
+}
+.FIE_tools-bar-wrapper .SfxIconButton-root:hover,
+.FIE_tools-bar-wrapper .SfxIconButton-root:focus,
+.FIE_canvas-container .SfxButton-root:hover,
+.FIE_canvas-container .SfxButton-root:focus,
+.SfxButton-root[color="secondary"]:focus,
+.SfxButton-root[color="secondary"]:hover,
+.SfxButton-root[color="primary"]:focus,
+.SfxButton-root[color="primary"]:hover {
+    border: 1px solid var(--w-color-surface-button-hover);
+    background-color: var(--w-color-surface-button-hover) !important;
+    color: var(--w-color-text-button) !important;
+}
+.FIE_tools-item-wrapper .SfxLabel-text {
+    color: var(--w-color-text-context);
+}
+.FIE_tools-wrapper .FIE_tools-items {
+    overflow-x: auto;
+}
+.FIE_carousel-next-button.FIE_carousel-next-button,
+.FIE_carousel-prev-button.FIE_carousel-prev-button {
+    display: none;
+}
+
+.SfxPopper-root.SfxPopper-root {
+    background-color: transparent;
+}
+.SfxMenu-root.SfxMenu-root,
+.SfxMenu-root.SfxMenu-root > *,
+.SfxMenuItem-root.SfxMenuItem-root,
+.SfxMenuItem-root.SfxMenuItem-root label,
+.SfxModal-Container.SfxModal-Container {
+    background-color: var(--w-color-surface-menus);
+    color: var(--w-color-text-label-menus-default);
+}
+.SfxModal-Container.SfxModal-Container .SfxInput-Icon,
+.SfxModal-Container.SfxModal-Container label,
+.SfxModalTitle-LabelPrimary {
+    color: var(--w-color-text-label-menus-default);
+}
+
+.SfxMenuItem-root.SfxMenuItem-root:hover {
+    background-color: var(--w-color-surface-menu-item-active);
+    text-shadow: -1px -1px 0 var(--w-color-black-35);
+}
+
+@media (max-width: 761px) {
+    .FIE_tabs_toggle_btn.SfxButton-root {
+        margin-right: 0.5rem;
     }
 }
