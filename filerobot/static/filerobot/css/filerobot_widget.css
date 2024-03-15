@@ -111,6 +111,10 @@
     background-color: var(--w-color-surface-menus);
     color: var(--w-color-text-label-menus-default);
     border-radius: 1em;
+    position: fixed;
+    height: fit-content;
+    top: 50%;
+    transform: translateY(-50%);
 }
 .SfxDrawer-header .SfxButton-root {
     color: var(--w-color-text-label-menus-default);
@@ -151,6 +155,12 @@
 .SfxButton-root[color="basic"]:hover {
     background-color: transparent;
     color: var(--w-color-text-button) !important;
+}
+.SfxButton-root[color="basic"].FIE_tabs_toggle_btn:hover svg,
+.SfxButton-root[color="basic"].FIE_tabs_toggle_btn:focus svg,
+.SfxButton-root[color="basic"].FIE_tabs_toggle_btn:hover,
+.SfxButton-root[color="basic"].FIE_tabs_toggle_btn:focus {
+    color: var(--w-color-secondary) !important;
 }
 .SfxButton-root[color="basic"]:focus svg,
 .SfxButton-root[color="basic"]:hover svg {
