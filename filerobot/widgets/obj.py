@@ -61,7 +61,7 @@ def _make_theme(typography: str):
             "bg-primary":             "unset",
             "bg-primary-active":      "unset",
             "bg-secondary":           "unset",
-            "accent-primary":         "unset",
+            "accent-primary":         "hsl(180.5 100% 24.7%)",
             "accent-primary-active":  "unset",
             "icons-primary":          "unset",
             "icons-secondary":        "unset",
