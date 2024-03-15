@@ -243,11 +243,14 @@ class FilerobotWidget(widgets.NumberInput):
             # Add data attributes for stimulus controller
             var = var.replace("_", "-")
             if value is not None:
-                print(var, value)
-                attrs[f"data-file-robot-widget-{var}-value"] = json.dumps(
-                    obj=value,
-                    cls=_JSONEncoder,
-                )
+
+                if isinstance(value, str):
+                    attrs[f"data-file-robot-widget-{var}-value"] = value
+                else:
+                    attrs[f"data-file-robot-widget-{var}-value"] = json.dumps(
+                        obj=value,
+                        cls=_JSONEncoder,
+                    )
 
         return attrs
     

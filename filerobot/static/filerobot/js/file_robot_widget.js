@@ -160,7 +160,6 @@ class FilerobotWidget {
         });
 
         if (simpleConfig.shouldAutoSave) {
-            console.log('[FilerobotWidget] Auto save after form submit is enabled');
             const form = $(this.fileInputWrapper).closest('[data-edit-form]');
             let isFormSubmit = false;
             form.on('submit', (e) => {
@@ -170,7 +169,6 @@ class FilerobotWidget {
                 e.preventDefault();
                 isFormSubmit = true;
                 const { imageData, designState } = this.filerobotImageEditor.getCurrentImgData();
-                console.log(`Form submitted, adding image ${imageData.fullName} to form`);
                 this.onSave(imageData, designState).then(data => {
                     if (data.success) {
                         form.submit();
@@ -182,6 +180,8 @@ class FilerobotWidget {
         } else {
             console.warn(`[FilerobotWidget] Auto save after form submit is disabled for ${querySelector}`);
         }
+
+        console.log(simpleConfig);
 
         this.editorConfig = {
             // removeSaveButton: true,
@@ -269,7 +269,6 @@ class FilerobotWidget {
     _parseDesignState(designState) {
         try {
             this.editorConfig.loadableDesignState = JSON.parse(designState);
-            console.log('Design state:', this.editorConfig.loadableDesignState);
         } catch (error) {
             console.error(`Failed to parse design state: ${error.message}`);
         }
