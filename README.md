@@ -14,7 +14,18 @@ Quick start
    'filerobot',
    ]
    ```
-2. Import and use the widget on your model
+   
+2. Add the URLs to your urls.py
+
+   ```python
+   from django.urls import path, include
+
+   urlpatterns = [
+      path('filerobot/', include('filerobot.urls')),
+   ]
+   ```
+   
+3. Import and use the widget on your model
 
    ```python
    from django.db import models
@@ -139,7 +150,7 @@ Quick start
            # crop_preset_group:                      dict = None,
            # crop_preset_item:                       dict = None,
            # cloud_image:                            dict = None,
-         
+
            # default_tab_id:                         str  = None, # Tabs defined in constants.py
            # default_tool_id:                        str  = None, # Tools defined in constants.py
            # use_backend_translations:               bool = None,
@@ -157,7 +168,7 @@ Quick start
            # no_cross_origin:                        bool = None,
            # disable_save_if_no_changes:             bool = None,
            # typography:                             str  = None, # The font family to use across the theme.
-         
+
            # Automatically save the image when submitting the admin form.
            # This might lag your browser for a second or 2 when saving the page.
            should_auto_save = True,
@@ -183,13 +194,4 @@ Quick start
            ('filerobot', FilerobotBlock()),
        ], blank=True, use_json_field=True)
 
-   ```
-3. Add the URLs to your urls.py
-
-   ```python
-   from django.urls import path, include
-
-   urlpatterns = [
-      path('filerobot/', include('filerobot.urls')),
-   ]
    ```

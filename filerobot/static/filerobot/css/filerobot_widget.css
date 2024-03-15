@@ -209,6 +209,10 @@
 .FIE_tools-wrapper .FIE_tools-items {
     overflow-x: auto;
 }
+.FIE_tools-items [aria-selected="true"] {
+    background-color: var(--w-color-surface-menu-item-active) !important;
+    color: var(--w-color-text-label-menus-active) !important;
+}
 .FIE_carousel-next-button.FIE_carousel-next-button,
 .FIE_carousel-prev-button.FIE_carousel-prev-button {
     display: none;

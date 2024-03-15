@@ -84,6 +84,9 @@ class FilerobotWidgetController extends window.StimulusModule.Controller {
             
         });
 
+        console.log('FilerobotWidgetController connected', this.defaultTabIdValue, typeof this.defaultTabIdValue)
+        console.log('FilerobotWidgetController connected', this.defaultToolIdValue, typeof this.defaultToolIdValue)
+
         this.widget = new FilerobotWidget(
             this.element.id,
             this.submitValue,
