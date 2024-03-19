@@ -14,22 +14,15 @@ def create_filerobot_collection(sender, **kwargs):
         Filerobot collection should ALWAYS have a depth of 2.
         No other collection at this depth with the same name should exist.
     """
-    root: Collection = Collection.get_first_root_node()
-
-    if root.get_children().filter(name=FILEROBOT_COLLECTION_NAME, depth=2).exists():
-        return
-    
-    collection = root.add_child(
-        name=FILEROBOT_COLLECTION_NAME,
-    )
-    if collection.depth != 2:
-        raise ValueError(
-            f"Expected depth 2, got {collection.depth} for collection {collection}"
+    root: Collection = Collection.objects.filter(depth=1, name=FILEROBOT_COLLECTION_NAME).first()
+    if root is None:
+        root = Collection.add_root(
+            name=FILEROBOT_COLLECTION_NAME,
         )
     
     cache.set(
         FILEROBOT_COLLECTION_CACHE_KEY,
-        collection.pk,
+        root.pk,
         FILEROBOT_COLLECTION_CACHE_TIMEOUT,
     )
     
@@ -40,7 +33,7 @@ def reset_filerobot_collection_cache(sender, instance, **kwargs):
         See views.py for usage.
     """
 
-    if instance.name == FILEROBOT_COLLECTION_NAME and instance.depth == 2:
+    if instance.name == FILEROBOT_COLLECTION_NAME and instance.depth == 1:
         cache.delete(FILEROBOT_COLLECTION_CACHE_KEY)
 
     cache.set(

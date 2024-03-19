@@ -1,6 +1,3 @@
-from .widget import (
-    get_collection_for_request,
-)
 from django.urls import reverse
 from django.utils.functional import cached_property
 from wagtail.models import Collection
@@ -12,19 +9,60 @@ from wagtail.images.views.chooser import (
     ImageChooseResultsView,
 )
 
+from .utils import get_originals_collection_for_request
 
 
-class FileRobotImageChooseViewMixin:
+class FileRobotImageCreateViewMixin:
     def setup(self, *args, **kwargs):
         super().setup(*args, **kwargs)
-        self._collection = get_collection_for_request(self.request)
+        self._collection = get_originals_collection_for_request(self.request)
+
+    def get_creation_form(self):
+        form = super().get_creation_form()
+        collection = getattr(self, "_collection", get_originals_collection_for_request(self.request))
+        form.fields["collection"].initial = collection.pk
+        form.fields["collection"].queryset = Collection.objects.filter(pk=collection.pk)
+        # form.fields["collection"].widget.input_type = "hidden"
+        # form.fields["collection"].widget.attrs["hidden"] = True
+        return form
+
+    def get_creation_form_kwargs(self):
+        """
+            Get the form kwargs.
+        """
+        kwargs = super().get_creation_form_kwargs()
+        kwargs.setdefault("initial", {})
+        kwargs["initial"].update({
+            "collection": getattr(
+                self, "_collection",
+                get_originals_collection_for_request(self.request)
+            )
+        })
+        return kwargs
     
+    def save_form(self, form):
+        """
+            Save the form.
+        """
+        instance = form.save(commit=False)
+        instance.collection = getattr(
+            self, "_collection",
+            get_originals_collection_for_request(self.request)
+        )
+        instance.save()
+        return instance
+
+
+class FileRobotImageChooseViewMixin(FileRobotImageCreateViewMixin):    
     @cached_property
     def collections(self):
-        return Collection.objects.filter(pk=self._collection.pk)
+        return Collection.objects.filter(pk__in=[
+            self._collection.pk,
+            self._collection.user_collection.pk,
+        ])
     
     def get_object_list(self):
-        return super().get_object_list().filter(collection=self._collection)
+        return super().get_object_list().filter(collection__in=self.collections)
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -42,41 +80,12 @@ class FileRobotImageChooseViewMixin:
         context["collections"] = self.collections
         return context
 
-class FileRobotImageCreateViewMixin:
-    def get_creation_form(self):
-        form = super().get_creation_form()
-        collection = get_collection_for_request(self.request)
-        form.fields["collection"].initial = collection.pk
-        form.fields["collection"].queryset = Collection.objects.filter(pk=collection.pk)
-        form.fields["collection"].widget.input_type = "hidden"
-        form.fields["collection"].widget.attrs["hidden"] = True
-        return form
 
-    def get_creation_form_kwargs(self):
-        """
-            Get the form kwargs.
-        """
-        kwargs = super().get_creation_form_kwargs()
-        kwargs.setdefault("initial", {})
-        kwargs["initial"].update({
-            "collection": get_collection_for_request(self.request),
-        })
-        return kwargs
-    
-    def save_form(self, form):
-        """
-            Save the form.
-        """
-        instance = form.save(commit=False)
-        instance.collection = get_collection_for_request(self.request)
-        instance.save()
-        return instance
-
-class FileRobotImageChooseView(FileRobotImageChooseViewMixin, FileRobotImageCreateViewMixin, ImageChooseView):
+class FileRobotImageChooseView(FileRobotImageChooseViewMixin, ImageChooseView):
     pass
 
 
-class FileRobotImageChooseResultsView(FileRobotImageChooseViewMixin, FileRobotImageCreateViewMixin, ImageChooseResultsView):
+class FileRobotImageChooseResultsView(FileRobotImageChooseViewMixin, ImageChooseResultsView):
     pass
 
 

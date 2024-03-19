@@ -1,17 +1,13 @@
-from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
-from django.http import JsonResponse, HttpRequest
-from django.core.cache import cache
+from django.http import JsonResponse
 
-from wagtail.models import Collection
 from wagtail.images import get_image_model
 from wagtail.images.forms import get_image_form
 
 from ..models import DesignState
+from .utils import get_collection_for_request
 
 from filerobot import (
-    FILEROBOT_COLLECTION_NAME,
-    FILEROBOT_COLLECTION_CACHE_KEY,
     FILEROBOT_USER_MUST_MATCH as USER_MUST_MATCH,
     FILEROBOT_DISABLE_HISTORY as DISABLE_HISTORY,
 )
@@ -19,65 +15,6 @@ from filerobot import (
 
 Image = get_image_model()
 ImageForm = get_image_form(Image)
-
-
-
-def get_filerobot_collection() -> Collection:
-    """
-        Retrieve the filerobot collection ID from the cache.
-        This might save a query.
-        See signals.py for reset logic.
-    """
-    cached = cache.get(FILEROBOT_COLLECTION_CACHE_KEY)
-    if cached is not None:
-        return Collection.objects.get(pk=cached)
-    
-    root: Collection = Collection.get_first_root_node()
-    collections = root.get_children().filter(
-        name=FILEROBOT_COLLECTION_NAME,
-        depth=2,
-    )
-
-    return collections.first()
-
-
-def get_collection_for_request(request: HttpRequest) -> Collection:
-    """
-        Get the collection for the current user.
-
-        If the collection does not exist, it will be created.
-
-        If the user is not authenticated, a ValueError will be raised.
-
-        The collection is created under: `FILEROBOT_COLLECTION_NAME` > `%username%`
-    """
-    if not request.user.is_authenticated:
-        raise ValueError("User is not authenticated")
-    
-    collection = get_filerobot_collection()
-
-    if collection is None:
-        raise ValueError("No filerobot collection found")
-    
-    user_collection: Collection = collection.get_children().filter(
-        depth=3,
-        path__startswith=collection.path,
-        name=request.user.username,
-    ).first()
-
-    if user_collection is None:
-        user_collection = collection.add_child(
-            name=request.user.username,
-        )
-
-    if user_collection.depth != 3:
-        collection.delete()
-        raise ValueError(
-            f"Expected depth 3, got {user_collection.depth} for collection {user_collection}"
-        )
-
-    return user_collection
-
 
 
 def file_view(request):
