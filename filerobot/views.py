@@ -197,6 +197,7 @@ def file_view(request):
     except Image.DoesNotExist:
         return JsonResponse({
             "success": False,
+            "reset": True, # Reset the widget to a clean state.
             "errors": [_("No image found")],
         })
 

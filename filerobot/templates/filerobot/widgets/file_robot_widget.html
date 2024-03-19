@@ -1,13 +1,16 @@
-<div class="filerobot-wrapper" id="{{ widget.attrs.id }}-filerobot-widget-wrapper">
-    <input
-        type="{{ widget.type }}"
-        name="{{ widget.name }}"
-        {% if widget.value != None %}value="{{ widget.value|stringformat:'s' }}"{% endif %}
-        {% include "django/forms/widgets/attrs.html" %}>
+<div class="filerobot-wrapper" id="{{ attrs.id }}-filerobot-widget-wrapper">
+    {% include "wagtailimages/widgets/image_chooser.html" %}
 
-    {% for script in widget.tpl_data %}
+
+    {% comment %} <input {% endcomment %}
+        {% comment %} type="{{ widget.type }}" {% endcomment %}
+        {% comment %} name="{{ widget.name }}" {% endcomment %}
+        {% comment %} {% if widget.value != None %}value="{{ widget.value|stringformat:'s' }}"{% endif %} {% endcomment %}
+        {% comment %} {% include "django/forms/widgets/attrs.html" %}> {% endcomment %}
+
+    {% for script in tpl_data %}
         {{ script|safe }}
     {% endfor %}
     
-    <div class="filerobot-widget-container" data-widget="{{ widget.name }}" id="{{ widget.attrs.id }}-filerobot-widget"></div>
+    <div class="filerobot-widget-container" data-widget="{{ widget.name }}" id="{{ attrs.id }}-filerobot-widget"></div>
 </div>

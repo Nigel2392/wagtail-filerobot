@@ -101,7 +101,7 @@ class FilerobotWidget {
 
         // Initialize elements
         this.fileInputWrapper = document.querySelector(`#${querySelector}-filerobot-widget-wrapper`);
-        this.fileInput = this.fileInputWrapper.querySelector(`#${querySelector}`);
+        this.fileInputWidget = this.fileInputWrapper.querySelector(`#${querySelector}-chooser`);
         this.fileRobot = this.fileInputWrapper.querySelector(`#${querySelector}-filerobot-widget`);
         let hasChanged = false;
 
@@ -193,7 +193,7 @@ class FilerobotWidget {
             onClose: (closingReason, haveNotSavedChanges) => {
                 // Terminate the editor and ask the user for another file.
                 this.terminateImageEditor();
-                this.fileInput.value = '';
+                this.fileInputWidget.widget.setState(null);
                 if (this.editorConfig.loadableDesignState) {
                     delete this.editorConfig.loadableDesignState;
                 };
@@ -224,45 +224,22 @@ class FilerobotWidget {
             _set_if_not_null(this.editorConfig, key, bigCfg[key]);
         }
         
-        this.fileInput.dataset.tabCount = bigCfg.tabsIds.length;
-        const sourceImageID = this.fileInput.value;
-        if (!sourceImageID) {
+        this.fileInputWidget.widget.input.dataset.tabCount = bigCfg.tabsIds.length;
+        const sourceImageObj = this.fileInputWidget.widget.getState();
+        if (!sourceImageObj) {
             this.constructFileInput();
         } else {
-            this.constructImageEditor(sourceImageID);
+            this.constructImageEditor(sourceImageObj);
         }
     }
 
     constructFileInput() {
-        this.fileInput.type = 'file';
-        this.fileInput.accept = 'image/png, image/jpeg, image/jpg, image/webp';
-        this.fileInput.onchange = async () => {
-            const file = this.fileInput.files[0];
-            const base64 = await getBase64(file);
-            this.editorConfig.source = base64
-            this.editorConfig.defaultSavedImageName = file.name;
-            this.editorConfig.defaultSavedImageType = file.type.split('/')[1];
-            this.fileInput.type = 'hidden';
-
-            const formData = new FormData();
-            formData.append('file', file);
-            formData.append('title', file.name);
-
-            makeRequest(this.submitUrl, 'POST', formData).then(data => {
-                if (data.success) {
-                    this.fileInput.value = data.id;
-                    if (this.editorConfig.loadableDesignState !== undefined) {
-                        delete this.editorConfig.loadableDesignState;
-                    }
-                    this.showImageEditor(data.url);
-                    // $(this.fileIn)
-                } else {
-                    const errors = data.errors;
-                    for (const error in errors) {
-                        console.error(`Failed to save image on upload (${error}): ${errors[error]}`);
-                    }
-                }
-            });
+        this.fileInputWidget.style.display = 'block';
+        this.fileInputWidget.widget.input.onchange = async () => {
+            const widgetState = this.fileInputWidget.widget.getState();
+            if (widgetState && widgetState.id) {
+                this.constructImageEditor(widgetState);
+            }
         }
     }
 
@@ -274,11 +251,11 @@ class FilerobotWidget {
         }
     }
 
-    constructImageEditor(sourceImageID) {
-        this.fileInput.type = 'hidden';
-        return makeRequest(this.submitUrl, 'GET', { image_id: sourceImageID }).then(data => {
+    constructImageEditor(sourceImageObj) {
+        this.fileInputWidget.style.display = 'none';
+        // Refresh the instance; check if we are allowed to edit.
+        return makeRequest(this.submitUrl, 'GET', { image_id: sourceImageObj.id }).then(data => {
             if (data.editable) {
-                this.fileInput.value = data.id;
                 if (data.design_state) {
                     this._parseDesignState(data.design_state);
                 }
@@ -300,17 +277,32 @@ class FilerobotWidget {
         const file = new File([blob], editedImageObject.fullName, { type: editedImageObject.mimeType });
         const formData = new FormData();
         
+        // Even though we let wagtail handle most of the image uploading logic,
+        // we still need to save the user-made changes to the image on the server.
         formData.append('file', file);
         formData.append('title', editedImageObject.name);
-        formData.append('image_id', this.fileInput.value);
+        formData.append('image_id', this.fileInputWidget.widget.input.value);
         formData.append('design_state', JSON.stringify(designState));
 
         const p = new Promise((resolve, reject) => {
             makeRequest(this.submitUrl, 'POST', formData).then(data => {
                 if (data.success) {
-                    this.fileInput.value = data.id;
-                    
+                    this.fileInputWidget.widget.setState({
+                        id: data.id,
+                        preview: {
+                            url: data.url,
+                        },
+                    });
                 } else {
+
+                    if (data.reset) {
+                        // Something went terribly wrong; reset the widget.
+                        console.error(`Failed to save image: ${data.message}, resetting widget.`);
+                        this.fileInputWidget.widget.setState(null);
+                        this.constructFileInput();
+                        this.terminateImageEditor();
+                    }
+
                     const errors = data.errors;
                     for (const error in errors) {
                         console.error(`Failed to save image (${error}): ${errors[error]}`);
@@ -353,15 +345,15 @@ class FilerobotWidget {
     }
 
     setState(value) {
-        
+        this.fileInput.value = value;
     }
 
     getState() {
-
+        return this.fileInput.value;
     }
 
     getValue() {
-
+        return this.fileInput.value;
     }
 
     focus() {

@@ -7,6 +7,7 @@ from django.templatetags.static import static
 import json
 
 from wagtail.images import get_image_model
+from wagtail.images.widgets import AdminImageChooser
 
 from . import obj
 from ..constants import (
@@ -105,7 +106,7 @@ def _json_script(data, id: str) -> str:
         mark_safe(json.dumps(data, cls=_JSONEncoder)),
     )
 
-class FilerobotWidget(widgets.NumberInput):
+class FilerobotWidget(AdminImageChooser):
     input_type = "hidden"
     template_name = "filerobot/widgets/file_robot_widget.html"
 
@@ -204,7 +205,7 @@ class FilerobotWidget(widgets.NumberInput):
 
     def get_context(self, name: str, value, attrs):
         context = super().get_context(name, value, attrs)
-        attrs = context["widget"]["attrs"]
+        attrs = context["attrs"]
         id_attr = attrs["id"]
         if id_attr:
             tpl_data = []
@@ -213,7 +214,7 @@ class FilerobotWidget(widgets.NumberInput):
                     data=getattr(self, attribute_name),
                     id=f"{id_attr}-{tpl}",
                 ))
-            context["widget"]["tpl_data"] = tpl_data
+            context["tpl_data"] = tpl_data
         return context
 
     def build_attrs(self, base_attrs, extra_attrs = None):
@@ -255,10 +256,14 @@ class FilerobotWidget(widgets.NumberInput):
         return attrs
     
     def get_value_data(self, value):
-        if value is None:
-            return None
-        
-        return value.pk
+        # value = super().get_value_data(value)
+        # if value is None:
+        #     return None
+        # 
+        # if isinstance(value, Image):
+        #     value = value.pk
+
+        return super().get_value_data(value)
 
     class Media:
         css = {
