@@ -15,17 +15,11 @@ Quick start
    ]
    ```
    
-2. Add the URLs to your urls.py
+2. Run `py manage.py collectstatic`
 
-   ```python
-   from django.urls import path, include
+3. Run `py manage.py migrate`
 
-   urlpatterns = [
-      path('filerobot/', include('filerobot.urls')),
-   ]
-   ```
-   
-3. Import and use the widget on your model
+4. Import and use the widget on your model
 
    ```python
    from django.db import models

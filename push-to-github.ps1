@@ -1,5 +1,6 @@
 param (
-    [string]$CommitMessage = "Update to package"
+    [string]$CommitMessage = "Update to package",
+    [bool]$Tag = $true
 )
 
 
@@ -13,14 +14,20 @@ function IsNumeric ($Value) {
 
 Function GITHUB_Upload {
     param (
+        [parameter(Mandatory=$false)]
         [string]$Version
     )
 
     git add .
-    $gitVersion = "v${Version}"
-    git tag $gitVersion
-    git commit -m $CommitMessage
-    git push -u origin main --tags
+    if ($Tag) {
+        $gitVersion = "v${Version}"
+        git tag $gitVersion
+        git commit -m $CommitMessage
+        git push -u origin main --tags
+    } else {
+        git commit -m $CommitMessage
+        git push -u origin main
+    }
 }
 
 Function _NextVersionString {
@@ -169,12 +176,13 @@ Function PYPI_Upload {
 }
 
 
-$version = GITHUB_UpdateVersion # Increment the package version  (setup.cfg)
-GITHUB_Upload -Version $version # Upload the package             (twine upload dist/<LATEST>)
-PYPI_Build                      # Build the package              (python setup.py sdist)
-PYPI_Check -Version $version    # Check the package              (twine check dist/<LATEST>)
-PYPI_Upload -Version $version   # Upload the package             (twine upload dist/<LATEST>)
-
-
-
+if ($Tag) {
+    $version = GITHUB_UpdateVersion # Increment the package version  (setup.cfg)
+    GITHUB_Upload -Version $version # Upload the package             (git push)
+    PYPI_Build                      # Build the package              (python setup.py sdist)
+    PYPI_Check -Version $version    # Check the package              (twine check dist/<LATEST>)
+    PYPI_Upload -Version $version   # Upload the package             (twine upload dist/<LATEST>)
+} else {
+    GITHUB_Upload # Upload the package
+}
 
