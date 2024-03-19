@@ -202,7 +202,6 @@ def file_view(request):
             USER_MUST_MATCH\
             and image.uploaded_by_user\
             and image.uploaded_by_user != request.user
-            or True
         ):
         data = {
             # More info below for editable instances.
