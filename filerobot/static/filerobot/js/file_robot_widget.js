@@ -259,6 +259,7 @@ class FilerobotWidget {
                 if (data.design_state) {
                     this._parseDesignState(data.design_state);
                 }
+                this.editorConfig.defaultSavedImageName = sourceImageObj.title;
                 this.showImageEditor(data.url);
             } else {
                 let img = document.createElement('img');
@@ -274,6 +275,7 @@ class FilerobotWidget {
         const base64Url = editedImageObject.imageBase64;
         const base64Data = base64Url.split(',')[1];
         const blob = base64toBlob(base64Data, 'image/jpeg');
+        console.log(editedImageObject);
         const file = new File([blob], editedImageObject.fullName, { type: editedImageObject.mimeType });
         const formData = new FormData();
         
