@@ -1,6 +1,6 @@
 param (
     [string]$CommitMessage = "Update to package",
-    [bool]$Tag = $true
+    [bool]$Tag = $false
 )
 
 

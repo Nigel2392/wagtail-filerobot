@@ -14,11 +14,8 @@ Quick start
    'filerobot',
    ]
    ```
-   
 2. Run `py manage.py collectstatic`
-
 3. Run `py manage.py migrate`
-
 4. Import and use the widget on your model
 
    ```python
@@ -27,7 +24,7 @@ Quick start
    from wagtail.models import Page
    from wagtail.admin.panels import FieldPanel
 
-   from filerobot.widgets import FilerobotWidget
+   from filerobot.widgets import FilerobotWidget, obj
    from filerobot.blocks import FilerobotBlock as FilerobotBlock
    from filerobot.fields import FilerobotField as FilerobotImageField
 
