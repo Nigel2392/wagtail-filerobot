@@ -7,7 +7,7 @@ from wagtail.models import Collection
 from wagtail.images import get_image_model
 from wagtail.images.forms import get_image_form
 
-from .models import DesignState
+from ..models import DesignState
 
 from filerobot import (
     FILEROBOT_COLLECTION_NAME,

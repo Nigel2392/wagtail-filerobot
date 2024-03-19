@@ -4,6 +4,14 @@ from django.utils.translation import gettext_lazy as _
 from wagtail import hooks
 from .urls import urlpatterns
 
+from .views.image_chooser import viewset as chooser_viewset
+
+
+@hooks.register("register_admin_viewset")
+def register_image_chooser_viewset():
+    return chooser_viewset
+
+
 
 @hooks.register('register_admin_urls')
 def register_admin_urls():

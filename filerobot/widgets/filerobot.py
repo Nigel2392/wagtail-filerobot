@@ -109,6 +109,7 @@ def _json_script(data, id: str) -> str:
 class FilerobotWidget(AdminImageChooser):
     input_type = "hidden"
     template_name = "filerobot/widgets/file_robot_widget.html"
+    chooser_modal_url_name = "filerobot_chooser:choose"
 
     def __init__(self,
             # Objects types for the widget.
