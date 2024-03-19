@@ -2,7 +2,6 @@ from django.urls import path, include
 from django.utils.html import json_script
 from django.utils.translation import gettext_lazy as _
 from wagtail import hooks
-from .urls import urlpatterns
 
 from .views.image_chooser import viewset as chooser_viewset
 
@@ -13,15 +12,15 @@ def register_image_chooser_viewset():
 
 
 
-@hooks.register('register_admin_urls')
-def register_admin_urls():
-    return [
-        path(
-            "filerobot/",
-            include((urlpatterns, "filerobot"), namespace="filerobot"),
-            name="filerobot"
-        )
-    ]
+# @hooks.register('register_admin_urls')
+# def register_admin_urls():
+#     return [
+#         path(
+#             "filerobot/",
+#             include((urlpatterns, "filerobot"), namespace="filerobot"),
+#             name="filerobot"
+#         )
+#     ]
 
 translations = {
     "name": _('Name'),

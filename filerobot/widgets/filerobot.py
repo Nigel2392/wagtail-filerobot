@@ -226,7 +226,7 @@ class FilerobotWidget(AdminImageChooser):
         attrs.update({
             "data-controller": "file-robot-widget",
             "data-file-robot-widget-submit-value": reverse(
-                "filerobot:file_view"
+                "filerobot_chooser:filerobot"
             ),
         })
 

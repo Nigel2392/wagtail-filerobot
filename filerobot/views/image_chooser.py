@@ -1,4 +1,4 @@
-from django.urls import reverse
+from django.urls import reverse, path
 from django.utils.functional import cached_property
 from wagtail.models import Collection
 from wagtail.images import get_image_model
@@ -10,6 +10,9 @@ from wagtail.images.views.chooser import (
 )
 
 from .utils import get_originals_collection_for_request
+from .widget import (
+    file_view,
+)
 
 
 class FileRobotImageCreateViewMixin:
@@ -56,6 +59,9 @@ class FileRobotImageCreateViewMixin:
 class FileRobotImageChooseViewMixin(FileRobotImageCreateViewMixin):    
     @cached_property
     def collections(self):
+        if self.request.user.is_superuser:
+            return super().collections
+        
         return Collection.objects.filter(pk__in=[
             self._collection.pk,
             self._collection.user_collection.pk,
@@ -92,6 +98,7 @@ class FileRobotImageChooseResultsView(FileRobotImageChooseViewMixin, ImageChoose
 class FileRobotImageUploadView(FileRobotImageCreateViewMixin, ImageUploadView):
     pass
 
+
 class FileRobotImageChooserViewSet(ImageChooserViewSet):
     """
         Viewset for the filerobot image chooser.
@@ -99,6 +106,11 @@ class FileRobotImageChooserViewSet(ImageChooserViewSet):
     choose_view_class = FileRobotImageChooseView
     choose_results_view_class = FileRobotImageChooseResultsView
     create_view_class = FileRobotImageUploadView
+
+    def get_urlpatterns(self):
+        return super().get_urlpatterns() + [
+            path("filerobot/", file_view, name="filerobot"),
+        ]
 
 
 viewset = FileRobotImageChooserViewSet(

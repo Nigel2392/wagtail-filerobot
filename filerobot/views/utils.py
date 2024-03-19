@@ -4,6 +4,7 @@ from wagtail.models import Collection
 from filerobot import (
     FILEROBOT_COLLECTION_NAME,
     FILEROBOT_COLLECTION_CACHE_KEY,
+    FILEROBOT_COLLECTION_CACHE_TIMEOUT,
 )
 
 
@@ -17,12 +18,19 @@ def get_filerobot_collection() -> Collection:
     if cached is not None:
         return Collection.objects.get(pk=cached)
     
-    root: Collection = Collection.get_root_nodes().filter(
-        depth=1,
+    root = Collection.get_root_nodes().filter(
         name=FILEROBOT_COLLECTION_NAME,
     )
 
-    return root.first()
+    root = root.first()
+    if root is not None:
+        cache.set(
+            FILEROBOT_COLLECTION_CACHE_KEY,
+            root.pk,
+            FILEROBOT_COLLECTION_CACHE_TIMEOUT,
+        )
+
+    return root
 
 
 def get_collection_for_request(request: HttpRequest) -> Collection:
@@ -77,12 +85,6 @@ def get_originals_collection_for_request(request: HttpRequest):
             name="originals",
         )
 
-    # if originals_collection.depth != 4:
-    #     collection.delete()
-    #     raise ValueError(
-    #         f"Expected depth 4, got {originals_collection.depth} for collection {originals_collection}"
-    #     )
-    
     originals_collection.user_collection = collection
 
     return originals_collection
