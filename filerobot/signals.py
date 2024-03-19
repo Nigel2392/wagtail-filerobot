@@ -19,8 +19,18 @@ def create_filerobot_collection(sender, **kwargs):
     if root.get_children().filter(name=FILEROBOT_COLLECTION_NAME, depth=2).exists():
         return
     
-    root.add_child(
+    collection = root.add_child(
         name=FILEROBOT_COLLECTION_NAME,
+    )
+    if collection.depth != 2:
+        raise ValueError(
+            f"Expected depth 2, got {collection.depth} for collection {collection}"
+        )
+    
+    cache.set(
+        FILEROBOT_COLLECTION_CACHE_KEY,
+        collection.pk,
+        FILEROBOT_COLLECTION_CACHE_TIMEOUT,
     )
     
 

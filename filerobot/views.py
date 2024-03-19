@@ -70,6 +70,12 @@ def get_collection_for_request(request: HttpRequest) -> Collection:
             name=request.user.username,
         )
 
+    if user_collection.depth != 3:
+        collection.delete()
+        raise ValueError(
+            f"Expected depth 3, got {user_collection.depth} for collection {user_collection}"
+        )
+
     return user_collection
 
 
