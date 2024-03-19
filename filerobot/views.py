@@ -84,6 +84,7 @@ def file_view(request):
         Making POST requests to this view will save the image and return a JsonResponse with the image data.
         `image_id` is always supplied by the widget.
         It is up to the django setting `FILEROBOT_DISABLE_HISTORY` to determine if the image will be overridden or not.
+        Very manual form handling is done.
 
         This view:
 
@@ -201,6 +202,7 @@ def file_view(request):
             USER_MUST_MATCH\
             and image.uploaded_by_user\
             and image.uploaded_by_user != request.user
+            or True
         ):
         data = {
             # More info below for editable instances.

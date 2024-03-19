@@ -16,11 +16,13 @@
     min-height: 400px;
 }
 .filerobot-widget-container:has(> img) {
-    height: 400px;
+    max-height: 300px;
     overflow: hidden;
+    display: flex;
 }
 .filerobot-widget-container > img {
-    height: 100%;
+    height: auto;
+    width: 100%;
     object-fit: contain;
     object-position: center left;
 }
@@ -67,26 +69,20 @@
     margin: 0 8px;
     color: var(--w-color-text-context);
 }
-.SfxModalTitle-Close .SfxCrossButton-root,
 .FIE_topbar-close-button.SfxCrossButton-root {
     color: var(--w-color-surface-button-default);
     background-color: transparent;
 }
-.SfxModalTitle-Close .SfxCrossButton-root:hover,
 .FIE_topbar-close-button.SfxCrossButton-root:hover {
     color: var(--w-color-surface-button-hover);
+    background-color: transparent;
+}
+.SfxModalTitle-Close .SfxCrossButton-root:hover {
     background-color: transparent;
 }
 .SfxIconButton-root.SfxIconButton-root {
     color: var(--w-color-surface-button-default);
     background-color: transparent;
-}
-.SfxModal-Container .SfxSlider-root.SfxSlider-root {
-    margin-top: 1rem !important;
-    margin-bottom: 1rem !important;
-}
-.SfxModal-Container .FIE_save-resize-wrapper {
-    margin-top: 0 !important;
 }
 .SfxSlider-Track.SfxSlider-Track,
 .SfxSlider-thumb.SfxSlider-thumb {
@@ -111,24 +107,12 @@
 .FIE_editor-content {
     gap: 1rem;
 }
-/*
-.FIE_editor-content .FIE_canvas-node,
-.FIE_editor-content .FIE_canvas-node:hover,
-.FIE_editor-content .FIE_canvas-node:focus,
-.FIE_editor-content .FIE_canvas-node:focus-within,
-.FIE_editor-content .FIE_canvas-node:focus-visible {
-    outline: none !important;
-}
-*/
+
 .FIE_root .SfxDrawer-temporary .SfxDrawer-root {
     box-shadow: 3px 3px 3px var(--w-color-secondary);
     background-color: var(--w-color-surface-menus);
     color: var(--w-color-text-label-menus-default);
     border-radius: 1em;
-    position: fixed;
-    height: fit-content;
-    top: 50%;
-    transform: translateY(-50%);
 }
 .SfxDrawer-header .SfxButton-root {
     color: var(--w-color-text-label-menus-default);
@@ -167,14 +151,8 @@
 
 .SfxButton-root[color="basic"]:focus,
 .SfxButton-root[color="basic"]:hover {
-    background-color: var(--w-color-surface-button-hover);
+    background-color: transparent;
     color: var(--w-color-text-button) !important;
-}
-.SfxButton-root[color="basic"].FIE_tabs_toggle_btn:hover svg,
-.SfxButton-root[color="basic"].FIE_tabs_toggle_btn:focus svg,
-.SfxButton-root[color="basic"].FIE_tabs_toggle_btn:hover,
-.SfxButton-root[color="basic"].FIE_tabs_toggle_btn:focus {
-    color: var(--w-color-secondary) !important;
 }
 .SfxButton-root[color="basic"]:focus svg,
 .SfxButton-root[color="basic"]:hover svg {
@@ -200,18 +178,11 @@
     background-color: var(--w-color-surface-button-hover) !important;
     color: var(--w-color-text-button) !important;
 }
-.FIE_resize-ratio-locker.FIE_resize-ratio-locker {
-    background-color: transparent !important;
-}
 .FIE_tools-item-wrapper .SfxLabel-text {
     color: var(--w-color-text-context);
 }
 .FIE_tools-wrapper .FIE_tools-items {
     overflow-x: auto;
-}
-.FIE_tools-items [aria-selected="true"] {
-    background-color: var(--w-color-surface-menu-item-active) !important;
-    color: var(--w-color-text-label-menus-active) !important;
 }
 .FIE_carousel-next-button.FIE_carousel-next-button,
 .FIE_carousel-prev-button.FIE_carousel-prev-button {
@@ -225,18 +196,9 @@
 .SfxMenu-root.SfxMenu-root > *,
 .SfxMenuItem-root.SfxMenuItem-root,
 .SfxMenuItem-root.SfxMenuItem-root label,
-.SfxModalTitle-root.SfxModalTitle-root,
 .SfxModal-Container.SfxModal-Container {
     background-color: var(--w-color-surface-menus);
     color: var(--w-color-text-label-menus-default);
-}
-.SfxModal-Container.SfxModal-Container .SfxModalTitle-Icon {
-    background-color: var(--w-color-surface-menu-item-active);
-}
-.SfxModal-Container.SfxModal-Container .SfxModalTitle-Icon svg {
-    fill: var(--w-color-text-label-menus-active);
-    width: 32px;
-    height: 32px;
 }
 .SfxModal-Container.SfxModal-Container .SfxInput-Icon,
 .SfxModal-Container.SfxModal-Container label,
