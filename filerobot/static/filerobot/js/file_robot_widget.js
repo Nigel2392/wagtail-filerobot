@@ -104,6 +104,7 @@ class FilerobotWidget {
         this.fileInputWidget = this.fileInputWrapper.querySelector(`#${querySelector}-chooser`);
         this.fileRobot = this.fileInputWrapper.querySelector(`#${querySelector}-filerobot-widget`);
         let hasChanged = false;
+        this.isShowingEditor = false;
 
         const bigCfg = {
             translations:         parseJsonScript('#filerobot-translations'),
@@ -236,6 +237,9 @@ class FilerobotWidget {
     constructFileInput() {
         this.fileInputWidget.style.display = 'block';
         this.fileInputWidget.widget.input.onchange = async () => {
+            if (this.isShowingEditor) {
+                return;
+            }
             const widgetState = this.fileInputWidget.widget.getState();
             if (widgetState && widgetState.id) {
                 this.constructImageEditor(widgetState);
@@ -291,6 +295,7 @@ class FilerobotWidget {
                 if (data.success) {
                     this.fileInputWidget.widget.setState({
                         id: data.id,
+                        title: data.title,
                         preview: {
                             url: data.url,
                         },
@@ -337,11 +342,13 @@ class FilerobotWidget {
             cpy.source = url;
         }
 
+        this.isShowingEditor = true;
         this.filerobotImageEditor.render(cpy);
 
     }
 
     terminateImageEditor() {
+        this.isShowingEditor = false;
         this.filerobotImageEditor.terminate();
         delete this.filerobotImageEditor;
     }
