@@ -3,7 +3,7 @@
     width: 100%;
 }
 .filerobot-image {
-    flex: 1;
+    display: flex;
     width: 100%;
     height: auto;
 }

@@ -86,6 +86,9 @@ class FilerobotImageValue(BlockTemplateMixin):
     def __bool__(self):
         return bool(self.image)
     
+    def __int__(self):
+        return int(self.image.pk)
+    
     def __getattr__(self, name):
         """
             Proxy all attribute access to the image object,
