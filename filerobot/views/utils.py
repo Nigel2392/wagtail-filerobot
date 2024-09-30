@@ -8,16 +8,27 @@ from filerobot import (
 )
 
 
-def get_filerobot_collection() -> Collection:
+def get_filerobot_collection(request: HttpRequest) -> Collection:
     """
         Retrieve the filerobot collection ID from the cache.
         This might save a query.
         See signals.py for reset logic.
     """
+    if hasattr(request, "filerobot_collection") and request.filerobot_collection is not None:
+        return request.filerobot_collection
+
     cached = cache.get(FILEROBOT_COLLECTION_CACHE_KEY)
     if cached is not None:
-        return Collection.objects.get(pk=cached)
-    
+        collection = Collection.objects.get(pk=cached)
+        
+        setattr(
+            request,
+            "filerobot_collection",
+            collection,
+        )
+        
+        return collection
+
     root = Collection.get_root_nodes().filter(
         name=FILEROBOT_COLLECTION_NAME,
     )
@@ -29,6 +40,12 @@ def get_filerobot_collection() -> Collection:
             root.pk,
             FILEROBOT_COLLECTION_CACHE_TIMEOUT,
         )
+
+    setattr(
+        request,
+        "filerobot_collection",
+        collection,
+    )
 
     return root
 
@@ -46,23 +63,35 @@ def get_collection_for_request(request: HttpRequest) -> Collection:
     if not request.user.is_authenticated:
         raise ValueError("User is not authenticated")
     
-    collection = get_filerobot_collection()
+    collection = get_filerobot_collection(request)
 
     if collection is None:
         raise ValueError("No filerobot collection found")
     
-    user_collection: Collection = collection.get_descendants().filter(
-        name=request.user.username, depth=collection.depth + 1,
-    ).first()
-
-    if user_collection is None:
-        user_collection = collection.add_child(
-            name=request.user.username,
-        )
-
-    user_collection.root_collection = collection
-
-    return user_collection
+    if hasattr(request, "user_collection") and request.user_collection is not None:
+        return request.user_collection
+    
+    request.user_collection = collection
+    return collection
+    
+    #user_collection: Collection = collection.get_children().filter(
+    #    name=request.user.username,
+    #).first()
+#
+    #if user_collection is None:
+    #    user_collection = collection.add_child(
+    #        name=request.user.username,
+    #    )
+#
+    #user_collection.root_collection = collection
+#
+    #setattr(
+    #    request,
+    #    "user_collection",
+    #    user_collection,
+    #)
+#
+    #return user_collection
 
 
 def get_originals_collection_for_request(request: HttpRequest):
@@ -75,16 +104,39 @@ def get_originals_collection_for_request(request: HttpRequest):
 
         The collection is created under: `FILEROBOT_COLLECTION_NAME` > `%username%` > `originals`
     """
-    user_collection = get_collection_for_request(request)
-    originals_collection = user_collection.get_descendants().filter(
-        name="originals", depth=user_collection.depth + 1,
-    ).first()
 
-    if originals_collection is None:
-        originals_collection = user_collection.add_child(
+    if hasattr(request, "originals_collection") and request.originals_collection is not None:
+        return request.originals_collection
+    
+    originals = Collection.objects.filter(
+        name="originals",
+    )
+
+    if originals is None:
+        originals = Collection.add_root(
             name="originals",
         )
 
-    originals_collection.user_collection = user_collection
+    request.originals_collection = originals
 
-    return originals_collection
+    return originals
+
+    # collection = get_collection_for_request(request)
+    # originals_collection = collection.get_children().filter(
+    #     name="originals",
+    # ).first()
+# 
+    # if originals_collection is None:
+    #     originals_collection = collection.add_child(
+    #         name="originals",
+    #     )
+# 
+    # originals_collection.user_collection = collection
+# 
+    # setattr(
+    #     request,
+    #     "originals_collection",
+    #     originals_collection,
+    # )
+# 
+    # return originals_collection

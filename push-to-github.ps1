@@ -5,6 +5,7 @@ param (
 
 
 $ProjectName = "wagtail-filerobot"
+$PyPiName = "wagtail_filerobot"
 $FolderName = "filerobot"
 
 
@@ -150,7 +151,7 @@ Function _PYPI_DistName {
         [string]$Append = ".tar.gz"
     )
 
-    return "$ProjectName-$Version$Append"
+    return "$PyPiName-$Version$Append"
 }
 
 Function PYPI_Build {
