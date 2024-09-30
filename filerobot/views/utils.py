@@ -110,7 +110,7 @@ def get_originals_collection_for_request(request: HttpRequest):
     
     originals = Collection.objects.filter(
         name="originals",
-    )
+    ).first()
 
     if originals is None:
         originals = Collection.add_root(
