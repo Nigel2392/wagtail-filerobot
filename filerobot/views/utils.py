@@ -52,7 +52,7 @@ def get_collection_for_request(request: HttpRequest) -> Collection:
         raise ValueError("No filerobot collection found")
     
     user_collection: Collection = collection.get_descendants().filter(
-        name=request.user.username,
+        name=request.user.username, depth=collection.depth + 1,
     ).first()
 
     if user_collection is None:
@@ -75,16 +75,16 @@ def get_originals_collection_for_request(request: HttpRequest):
 
         The collection is created under: `FILEROBOT_COLLECTION_NAME` > `%username%` > `originals`
     """
-    collection = get_collection_for_request(request)
-    originals_collection = collection.get_descendants().filter(
-        name="originals",
+    user_collection = get_collection_for_request(request)
+    originals_collection = user_collection.get_descendants().filter(
+        name="originals", depth=user_collection.depth + 1,
     ).first()
 
     if originals_collection is None:
-        originals_collection = collection.add_child(
+        originals_collection = user_collection.add_child(
             name="originals",
         )
 
-    originals_collection.user_collection = collection
+    originals_collection.user_collection = user_collection
 
     return originals_collection
